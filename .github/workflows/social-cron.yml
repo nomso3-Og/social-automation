@@ -25,9 +25,10 @@ jobs:
 
       - run: npm ci
 
-      - name: Watch for completed labs (auto-posts)
+      - name: Watch for completed labs (drafts posts for approval)
         env:
           GITHUB_TOKEN: ${{ secrets.LAB_WATCH_TOKEN }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: node scripts/lab-watcher.mjs
 
       - name: Publish due scheduled posts

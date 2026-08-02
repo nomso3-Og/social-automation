@@ -80,12 +80,20 @@ it once due, no manual step needed.
 yourself, then create a folder under `drafts/` (or `scheduled/`) with that
 image, a `caption.txt`, and a `meta.json` — see `drafts/README.md`.
 
-**Labs → auto-post:** edit `config/lab-watch.json` to list the repos/branches
-to watch. Every new commit becomes a scheduled post (`publishAt` = now) using
-`captionTemplate`, published on the same or next cron run — no approval step,
-by design, since that's what was asked for. To hold a post back, either give
-it a future `publishAt`, or delete its folder from `scheduled/` before the
-next cron tick.
+**Labs → drafted post:** edit `config/lab-watch.json` to list the repos and
+branches to watch. A new commit drafts a post into `pending-posts/` for
+approval, same as everything else.
+
+The post is written from the commit rather than being the commit message.
+Dumping `captionTemplate` straight onto a profile produced things like "fix:
+typo in readme", and for a private repo the `{url}` was a link every reader
+got a 404 on. The link is now only included when the repo is actually
+public, and `captionTemplate` is just the fallback for when `GEMINI_API_KEY`
+is missing or the call fails.
+
+First run against a newly added repo records the current commit as a
+baseline and drafts nothing, so adding a repo doesn't backfill whatever
+happened to be at `HEAD`.
 
 **Mentions → replies:** `mentions.mjs` only *drafts* replies, into
 `pending-replies/<platform>-<id>.json`:
