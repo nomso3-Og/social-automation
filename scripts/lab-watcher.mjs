@@ -1,18 +1,25 @@
 #!/usr/bin/env node
-// Watches the repos in config/lab-watch.json for new commits and turns each
-// new one into an auto-post: writes a scheduled/ draft with publishAt=now,
-// which schedule-run.mjs picks up on the same or next cron tick. This is the
-// "post it when I finish a lab" path — it posts without approval by design.
-// To add a review buffer, set a future publishAt below, or delete the
-// scheduled/ folder before the next cron run.
+// Watches the repos in config/lab-watch.json for new commits and drafts a
+// post about each one into pending-posts/, behind the same approval gate as
+// everything else.
+//
+// This used to auto-publish: it wrote straight to scheduled/ with
+// publishAt=now, using the raw commit message as the caption. That produced
+// posts nobody would want on a profile ("fix: typo in readme") and, for a
+// private repo, a link every reader gets a 404 on. Commits are a trigger
+// worth keeping; the commit message is not the post.
+//
+// The repo link is only included when the repo is actually public.
 import 'dotenv/config';
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, writeFile, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { GoogleGenAI } from '@google/genai';
 import { readState, writeState } from '../lib/state.mjs';
+import { STYLE_RULES, findStyleViolations } from '../lib/style.mjs';
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
-const SCHEDULED_DIR = path.join(ROOT, 'scheduled');
+const PENDING_DIR = path.join(ROOT, 'pending-posts');
 
 const token = process.env.GITHUB_TOKEN;
 if (!token) {
@@ -35,8 +42,24 @@ function fillTemplate(template, vars) {
 }
 
 const { repos } = JSON.parse(
-  await (await import('node:fs/promises')).readFile(path.join(ROOT, 'config', 'lab-watch.json'), 'utf8')
+  await readFile(path.join(ROOT, 'config', 'lab-watch.json'), 'utf8')
 );
+
+const geminiKey = process.env.GEMINI_API_KEY;
+const ai = geminiKey ? new GoogleGenAI({ apiKey: geminiKey }) : null;
+
+const systemInstruction = `You write LinkedIn posts for a GRC (Governance,
+Risk, Compliance) analyst who also works in IT. You'll get a commit message
+from a project they're building. Write a short post about what they worked on.
+
+The commit message is the only thing you know. Do not invent tools, metrics,
+architecture, or motivations that aren't in it. If the commit is small or
+routine, write something brief and matter-of-fact rather than inflating it
+into a milestone. A modest, honest post beats a grand one built on nothing.
+
+Length: 60 to 150 words. At most 2 hashtags.
+
+${STYLE_RULES}`;
 
 for (const watch of repos) {
   const { owner, repo, branch = 'main', path: subPath, platforms, captionTemplate } = watch;
@@ -62,39 +85,88 @@ for (const watch of repos) {
     }
 
     // First run for this repo: record the current HEAD as the baseline and
-    // post nothing. Without this, adding a repo to lab-watch.json backfills
-    // whatever commit happens to be latest — auto-posting an old commit to a
-    // live account with no approval step. Watchers should start from "now".
+    // draft nothing. Without this, adding a repo to lab-watch.json backfills
+    // whatever commit happens to be latest. Watchers should start from "now".
     if (state.lastSha === null) {
-      console.log(`  first run — baseline set to ${latest.sha.slice(0, 7)}, not posting`);
+      console.log(`  first run — baseline set to ${latest.sha.slice(0, 7)}, not drafting`);
       await writeState(stateKey, { lastSha: latest.sha });
       continue;
     }
 
-    const title = latest.commit.message.split('\n')[0];
-    const caption = fillTemplate(captionTemplate ?? '{title}\n\n{url}', {
-      title,
-      summary: latest.commit.message.split('\n').slice(1).join(' ').trim(),
-      url: latest.html_url,
-    });
+    // Only link a repo readers can actually open.
+    let isPublic = false;
+    try {
+      const meta = await githubGet(`https://api.github.com/repos/${owner}/${repo}`);
+      isPublic = meta.private === false;
+    } catch {
+      console.warn('  could not determine repo visibility, omitting the link');
+    }
 
-    const folderName = `lab-${owner}-${repo}-${latest.sha.slice(0, 7)}`;
-    const dir = path.join(SCHEDULED_DIR, folderName);
-    await mkdir(dir, { recursive: true });
-    await writeFile(path.join(dir, 'caption.txt'), caption + '\n');
+    const title = latest.commit.message.split('\n')[0];
+    const bodyText = latest.commit.message.split('\n').slice(1).join(' ').trim();
+    const url = isPublic ? latest.html_url : null;
+
+    let postText = null;
+
+    if (ai) {
+      try {
+        const prompt = [
+          `Repository: ${owner}/${repo}`,
+          `Commit: ${title}`,
+          bodyText ? `Details: ${bodyText}` : null,
+          url ? `Link to include at the end: ${url}` : 'Do not include any link.',
+        ]
+          .filter(Boolean)
+          .join('\n');
+
+        const response = await ai.models.generateContent({
+          model: 'gemini-flash-latest',
+          contents: prompt,
+          config: { systemInstruction },
+        });
+        postText = response.text?.trim() || null;
+      } catch (err) {
+        console.warn(`  couldn't write a post: ${err.message?.slice(0, 120) ?? err}`);
+      }
+    }
+
+    // Falls back to the configured template so a missing/failing Gemini key
+    // still produces something reviewable, rather than dropping the commit.
+    if (!postText) {
+      postText = fillTemplate(captionTemplate ?? '{title}\n\n{url}', {
+        title,
+        summary: bodyText,
+        url: url ?? '',
+      }).trim();
+      console.log('  used the caption template');
+    }
+
+    const styleFlags = findStyleViolations(postText);
+    if (styleFlags.length > 0) console.warn(`  style flags: ${styleFlags.join('; ')}`);
+
+    await mkdir(PENDING_DIR, { recursive: true });
+    const fileName = `lab-${owner}-${repo}-${latest.sha.slice(0, 7)}.json`;
     await writeFile(
-      path.join(dir, 'meta.json'),
-      JSON.stringify({ platforms, publishAt: new Date().toISOString(), source: latest.html_url }, null, 2) + '\n'
+      path.join(PENDING_DIR, fileName),
+      JSON.stringify(
+        {
+          platform: platforms?.[0] ?? 'linkedin',
+          source: `${owner}/${repo}@${latest.sha.slice(0, 7)}`,
+          text: postText,
+          approved: false,
+          styleFlags,
+        },
+        null,
+        2
+      ) + '\n'
     );
 
-    console.log(`  new commit ${latest.sha.slice(0, 7)} -> scheduled/${folderName}`);
+    console.log(`  new commit ${latest.sha.slice(0, 7)} -> pending-posts/${fileName}`);
     await writeState(stateKey, { lastSha: latest.sha });
   } catch (err) {
     // One misconfigured/inaccessible watched repo (wrong name, private repo
     // without LAB_WATCH_TOKEN, etc.) must not take down the rest of the cron
-    // run — schedule-run/mentions/send-replies/research-content/send-content
-    // all run as later steps in the same job and have nothing to do with
-    // this specific repo.
+    // run — later steps have nothing to do with this specific repo.
     console.error(`  skipping ${owner}/${repo}: ${err.message}`);
   }
 }

@@ -1,13 +1,14 @@
 {
-  "_comment": "Repos to poll for completed labs. Each entry watches new commits on `branch` under `path` (or the whole repo if path is omitted). The GitHub Actions cron schedule controls how often this runs, not a value in here.",
+  "_comment": "Repos to poll for new commits. Each entry watches `branch` under `path` (or the whole repo if path is omitted). A new commit drafts a post into pending-posts/ for approval; nothing publishes on its own. The GitHub Actions cron schedule controls how often this runs, not a value in here.",
+  "_captionTemplate": "Only used as a fallback when GEMINI_API_KEY is missing or the call fails. Normally the post is written from the commit. {url} is left empty for private repos, since readers can't open those links.",
   "repos": [
     {
       "owner": "nomso3-og",
       "repo": "public",
       "branch": "main",
       "path": null,
-      "platforms": ["twitter", "linkedin"],
-      "captionTemplate": "Just shipped: {title}\n\n{summary}\n\n{url}"
+      "platforms": ["linkedin"],
+      "captionTemplate": "Just shipped: {title}\n\n{summary}"
     }
   ]
 }

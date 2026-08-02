@@ -40,7 +40,18 @@ for (const file of files) {
   }
 
   console.log(`Publishing ${file} to ${post.platform}...`);
-  const result = await publishOne(post.platform, post.text, null, composio);
+
+  let result;
+  try {
+    result = await publishOne(post.platform, post.text, null, composio);
+  } catch (err) {
+    // An unconfigured platform (slug still REPLACE_ME) or a transient API
+    // failure must not crash the step and take the rest of the cron run with
+    // it. The draft is left in place, still approved, to retry next run.
+    console.error(`  skipping ${file}: ${err.message?.slice(0, 200) ?? err}`);
+    continue;
+  }
+
   console.log(`  -> ${result.successful === false ? 'FAILED' : 'ok'}`);
 
   await archivePosted(PENDING_DIR, file, filePath);
