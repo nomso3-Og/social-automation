@@ -23,6 +23,29 @@ export async function loadDraft(dir) {
   return { caption, meta, imagePath };
 }
 
+// NOTE: argument shapes are per-platform/per-toolkit-version; verified against
+// `npm run list-actions -- <platform> post` output, not guessed.
+async function buildArgs(platform, caption, imagePath, composio) {
+  if (platform === 'linkedin') {
+    if (imagePath) {
+      throw new Error(
+        'linkedin image posts need the INITIALIZE_IMAGE_UPLOAD/REGISTER_IMAGE_UPLOAD ' +
+          'presigned-upload flow (see list-actions output) — not implemented yet, so ' +
+          'refusing rather than silently posting without the image.'
+      );
+    }
+    const me = await composio.tools.execute('LINKEDIN_GET_MY_INFO', {
+      userId: USER_ID,
+      arguments: {},
+      dangerouslySkipVersionCheck: true,
+    });
+    return { author: `urn:li:person:${me.data.id}`, commentary: caption };
+  }
+  const args = { text: caption };
+  if (imagePath) args.media_path = imagePath; // adjust to the real param name from list-actions
+  return args;
+}
+
 export async function publishDraft(dir) {
   const { caption, meta, imagePath } = await loadDraft(dir);
   const composio = getComposio();
@@ -31,9 +54,12 @@ export async function publishDraft(dir) {
   for (const platform of meta.platforms ?? []) {
     const slug = await loadActionSlug(platform, 'post');
     console.log(`Posting to ${platform} (${slug})...`);
-    const args = { text: caption };
-    if (imagePath) args.media_path = imagePath; // adjust to the real param name from list-actions
-    const result = await composio.tools.execute(slug, { userId: USER_ID, arguments: args });
+    const args = await buildArgs(platform, caption, imagePath, composio);
+    const result = await composio.tools.execute(slug, {
+      userId: USER_ID,
+      arguments: args,
+      dangerouslySkipVersionCheck: true,
+    });
     results.push({ platform, result });
     console.log(`  -> ${platform}: ${result.successful === false ? 'FAILED' : 'ok'}`);
   }

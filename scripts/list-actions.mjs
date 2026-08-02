@@ -30,7 +30,8 @@ if (list.length === 0) {
 }
 
 for (const tool of list) {
-  const slug = tool.slug ?? tool.name ?? '(unknown slug)';
-  const description = tool.description ?? '';
+  const fn = tool.function ?? tool;
+  const slug = fn.name ?? tool.slug ?? '(unknown slug)';
+  const description = fn.description ?? tool.description ?? '';
   console.log(`${slug}\n  ${description}\n`);
 }
