@@ -4,11 +4,10 @@ Also doubles as a portfolio home for finished labs/work — see `portfolio/`.
 Anything dropped there is a candidate for the auto-post pipeline above once
 it's linked up from `config/lab-watch.json`.
 
-Auto-post, schedule, cross-post drafts from `design-studio.html`, reply to
-mentions, and post GitHub "lab completed" commits to social accounts —
-built on [Composio](https://composio.dev), which handles OAuth to each
-platform so you don't need to register a developer app on X/LinkedIn/etc.
-yourself.
+Auto-post, schedule, cross-post drafts, reply to mentions, and post GitHub
+"lab completed" commits to social accounts — built on
+[Composio](https://composio.dev), which handles OAuth to each platform so
+you don't need to register a developer app on X/LinkedIn/etc. yourself.
 
 Runs on a GitHub Actions cron (`.github/workflows/social-cron.yml`, every 15
 min) rather than a server you have to keep alive — nothing here needs to run
@@ -73,10 +72,9 @@ cd ../.. && npm run post -- drafts/my-post
 `"publishAt": "2026-08-10T15:00:00Z"` to `meta.json` — the cron job publishes
 it once due, no manual step needed.
 
-**Cross-posting from design-studio.html:** use the "Export for Social" button
-in the studio — it downloads an image + caption named to match this
-convention. Drop both files into a new folder under `drafts/` (or
-`scheduled/`) with a `meta.json` — see `drafts/README.md`.
+**Cross-posting a design or any other image:** export/save the image
+yourself, then create a folder under `drafts/` (or `scheduled/`) with that
+image, a `caption.txt`, and a `meta.json` — see `drafts/README.md`.
 
 **Labs → auto-post:** edit `config/lab-watch.json` to list the repos/branches
 to watch. Every new commit becomes a scheduled post (`publishAt` = now) using
