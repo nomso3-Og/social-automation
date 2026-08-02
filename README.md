@@ -139,6 +139,21 @@ read as AI-written. If `GEMINI_API_KEY` isn't set, `research-content.mjs`
 fails immediately (no content-gen without a key); the rest of the cron
 pipeline is unaffected since it runs as its own step.
 
+**Homelab write-ups → portfolio posts:** drop a Markdown file describing a
+project into `homelabs/` and commit it. `homelab-watcher.mjs` turns it into a
+story-driven portfolio post in `pending-posts/`, same approval gate as
+everything else. It's told to use only what's in your notes and to write less
+rather than invent details, so vague notes give a vague post. Files are
+tracked by content hash in `state/homelab-seen.json`: re-running does
+nothing, editing a write-up regenerates it. See `homelabs/README.md`.
+
+**House style:** `lib/style.mjs` holds the voice rules both writers share: a
+banned-phrase list (`delve`, `testament`, `in today's digital age`, and the
+rest), a hard ban on em dashes and hyphen bullets, and an instruction to vary
+sentence length. Every draft carries a `styleFlags` array listing anything
+that slipped through, so you can see it before approving. It's advisory, not
+enforced. Edit the list in `lib/style.mjs` to taste.
+
 **Why LinkedIn only:** this pipeline can't do X/Twitter-style "find and
 comment on other people's posts" — LinkedIn's API (even for a fully connected
 member OAuth) has no topic/feed search action, only posting, commenting on a
