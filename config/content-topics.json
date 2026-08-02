@@ -1,0 +1,14 @@
+{
+  "_comment": "Topics the AI writes original, reference/cheat-sheet-style LinkedIn posts about. Rotates through in order; cadenceHours controls how often a new draft is generated, checked on every cron tick.",
+  "cadenceHours": 36,
+  "topics": [
+    "GRC frameworks and how they relate to each other (ISO 27001, NIST CSF, SOC 2)",
+    "IT risk management basics for people new to the field",
+    "ISO 27001 implementation lessons",
+    "NIST CSF updates and adoption",
+    "SOC 2 audits and readiness checklist",
+    "cybersecurity governance in IT teams",
+    "common gaps in AML/BSA compliance programs",
+    "how to read a compliance audit finding"
+  ]
+}
