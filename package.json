@@ -14,6 +14,8 @@
     "lab-watcher": "node scripts/lab-watcher.mjs",
     "research-content": "node scripts/research-content.mjs",
     "homelab-watcher": "node scripts/homelab-watcher.mjs",
+    "request-approval": "node scripts/request-approval.mjs",
+    "check-approvals": "node scripts/check-approvals.mjs",
     "send-content": "node scripts/send-content.mjs"
   },
   "dependencies": {

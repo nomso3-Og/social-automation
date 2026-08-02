@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 concurrency:
   group: social-cron
@@ -54,10 +55,24 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: node scripts/homelab-watcher.mjs
 
+      # Order matters: read replies before publishing, so approving a post
+      # sends it on this same run rather than waiting for the next tick.
+      - name: Read approval replies
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/check-approvals.mjs
+
       - name: Send approved content
         env:
           COMPOSIO_API_KEY: ${{ secrets.COMPOSIO_API_KEY }}
         run: node scripts/send-content.mjs
+
+      # After sending, so a just-published draft never gets an issue opened
+      # for it.
+      - name: Ask for approval on new drafts
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/request-approval.mjs
 
       - name: Commit state changes
         run: |
