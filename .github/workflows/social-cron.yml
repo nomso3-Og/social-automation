@@ -44,10 +44,20 @@ jobs:
           COMPOSIO_API_KEY: ${{ secrets.COMPOSIO_API_KEY }}
         run: node scripts/send-replies.mjs
 
+      - name: Write content (drafts original posts for approval)
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: node scripts/research-content.mjs
+
+      - name: Send approved content
+        env:
+          COMPOSIO_API_KEY: ${{ secrets.COMPOSIO_API_KEY }}
+        run: node scripts/send-content.mjs
+
       - name: Commit state changes
         run: |
           git config user.name "social-automation-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add state/ scheduled/ drafts/posted/ pending-replies/
+          git add state/ scheduled/ drafts/posted/ pending-replies/ pending-posts/
           git diff --cached --quiet || git commit -m "chore: update automation state [skip ci]"
           git push

@@ -11,10 +11,13 @@
     "schedule-run": "node scripts/schedule-run.mjs",
     "mentions": "node scripts/mentions.mjs",
     "send-replies": "node scripts/send-replies.mjs",
-    "lab-watcher": "node scripts/lab-watcher.mjs"
+    "lab-watcher": "node scripts/lab-watcher.mjs",
+    "research-content": "node scripts/research-content.mjs",
+    "send-content": "node scripts/send-content.mjs"
   },
   "dependencies": {
     "@composio/core": "^0.14.1",
+    "@google/genai": "^2.15.0",
     "dotenv": "^16.4.5"
   }
 }

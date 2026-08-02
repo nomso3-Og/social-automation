@@ -8,12 +8,6 @@ import path from 'node:path';
 import { getComposio, USER_ID } from '../lib/composio.mjs';
 import { loadActionSlug } from '../lib/actions.mjs';
 
-const draftDir = process.argv[2];
-if (!draftDir) {
-  console.error('Usage: npm run post -- drafts/<draft-folder>');
-  process.exit(1);
-}
-
 export async function loadDraft(dir) {
   const caption = (await readFile(path.join(dir, 'caption.txt'), 'utf8')).trim();
   const meta = JSON.parse(await readFile(path.join(dir, 'meta.json'), 'utf8'));
@@ -46,27 +40,31 @@ async function buildArgs(platform, caption, imagePath, composio) {
   return args;
 }
 
+export async function publishOne(platform, caption, imagePath, composio) {
+  const slug = await loadActionSlug(platform, 'post');
+  const args = await buildArgs(platform, caption, imagePath, composio);
+  return composio.tools.execute(slug, {
+    userId: USER_ID,
+    arguments: args,
+    dangerouslySkipVersionCheck: true,
+  });
+}
+
 export async function publishDraft(dir) {
   const { caption, meta, imagePath } = await loadDraft(dir);
   const composio = getComposio();
   const results = [];
 
   for (const platform of meta.platforms ?? []) {
-    let slug;
     try {
-      slug = await loadActionSlug(platform, 'post');
+      await loadActionSlug(platform, 'post');
     } catch (err) {
       console.log(`Skipping ${platform}: ${err.message}`);
       results.push({ platform, result: { successful: false, skipped: true } });
       continue;
     }
-    console.log(`Posting to ${platform} (${slug})...`);
-    const args = await buildArgs(platform, caption, imagePath, composio);
-    const result = await composio.tools.execute(slug, {
-      userId: USER_ID,
-      arguments: args,
-      dangerouslySkipVersionCheck: true,
-    });
+    console.log(`Posting to ${platform}...`);
+    const result = await publishOne(platform, caption, imagePath, composio);
     results.push({ platform, result });
     console.log(`  -> ${platform}: ${result.successful === false ? 'FAILED' : 'ok'}`);
   }
@@ -75,5 +73,10 @@ export async function publishDraft(dir) {
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
+  const draftDir = process.argv[2];
+  if (!draftDir) {
+    console.error('Usage: npm run post -- drafts/<draft-folder>');
+    process.exit(1);
+  }
   await publishDraft(draftDir);
 }

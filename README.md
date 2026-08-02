@@ -51,10 +51,14 @@ Repo → Settings → Secrets and variables → Actions, add:
 - `LAB_WATCH_TOKEN` (optional) — a read-only PAT, only needed if the repos in
   `config/lab-watch.json` are private. Public repos work unauthenticated
   (lower GitHub API rate limit, fine at this polling frequency).
+- `GEMINI_API_KEY` (optional) — only needed if you want `research-content.mjs`
+  to draft original posts (see "AI-written content" below). Free, from
+  https://aistudio.google.com/apikey.
 
 That's it — the cron workflow runs `lab-watcher.mjs`, `schedule-run.mjs`,
-`mentions.mjs`, and `send-replies.mjs` every 15 minutes and commits state back
-to the repo so it stays consistent across runs.
+`mentions.mjs`, `send-replies.mjs`, `research-content.mjs`, and
+`send-content.mjs` every 15 minutes and commits state back to the repo so it
+stays consistent across runs.
 
 ## 3. Everyday use
 
@@ -103,6 +107,41 @@ bad public reply is hard to take back, auto-posting a lab or a scheduled
 draft you already wrote is not. Flip it by having `mentions.mjs` call
 `send-replies` logic directly instead of writing a pending file, if you'd
 rather it be fully automatic.
+
+**AI-written content → LinkedIn posts:** if `GEMINI_API_KEY` is set,
+`research-content.mjs` picks the next topic from `config/content-topics.json`
+(rotates through the list, at most once per `cadenceHours`), and uses Gemini's
+free tier to write an original reference/cheat-sheet-style post — the kind of
+"here's a practical breakdown of X" post InfoSec/GRC folks share, not news
+commentary — into `pending-posts/linkedin-<timestamp>.json`:
+
+```json
+{
+  "platform": "linkedin",
+  "topic": "SOC 2 audits and readiness checklist",
+  "text": "the drafted post",
+  "approved": false
+}
+```
+
+Same safety default as mentions, and for the same reason: this is the
+model's own take on a topic, not your own verified work, so it needs your
+review before it goes out. Edit `text` if you want, set `"approved": true`,
+commit+push (or run `npm run send-content` locally). `config/content-topics.json`'s
+topics are a starting point for a GRC/IT-focused profile — edit the list to
+match your own field. The prompt in `research-content.mjs` explicitly bans em
+dashes and instructs plain, human phrasing — tune it further if posts still
+read as AI-written. If `GEMINI_API_KEY` isn't set, `research-content.mjs`
+fails immediately (no content-gen without a key); the rest of the cron
+pipeline is unaffected since it runs as its own step.
+
+**Why LinkedIn only:** this pipeline can't do X/Twitter-style "find and
+comment on other people's posts" — LinkedIn's API (even for a fully connected
+member OAuth) has no topic/feed search action, only posting, commenting on a
+*specific known* post, and account stats. Genuine cross-account engagement
+needs a platform whose API supports search, which for this repo's connected
+accounts currently means Twitter/X once it's connected with your own
+Developer App credentials — see the twitter section above.
 
 ## Notes / things that need your judgment, not a default
 
