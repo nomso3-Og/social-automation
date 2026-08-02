@@ -52,7 +52,14 @@ export async function publishDraft(dir) {
   const results = [];
 
   for (const platform of meta.platforms ?? []) {
-    const slug = await loadActionSlug(platform, 'post');
+    let slug;
+    try {
+      slug = await loadActionSlug(platform, 'post');
+    } catch (err) {
+      console.log(`Skipping ${platform}: ${err.message}`);
+      results.push({ platform, result: { successful: false, skipped: true } });
+      continue;
+    }
     console.log(`Posting to ${platform} (${slug})...`);
     const args = await buildArgs(platform, caption, imagePath, composio);
     const result = await composio.tools.execute(slug, {
