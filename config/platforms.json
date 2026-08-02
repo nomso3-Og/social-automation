@@ -1,0 +1,6 @@
+{
+  "twitter": { "toolkit": "twitter" },
+  "linkedin": { "toolkit": "linkedin" },
+  "instagram": { "toolkit": "instagram" },
+  "facebook": { "toolkit": "facebook" }
+}

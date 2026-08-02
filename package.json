@@ -1,0 +1,20 @@
+{
+  "name": "social-automation",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Composio-based automation: schedule/auto-post, cross-post drafts from design-studio, reply to mentions, and post GitHub lab completions to social accounts.",
+  "scripts": {
+    "connect": "node scripts/connect.mjs",
+    "list-actions": "node scripts/list-actions.mjs",
+    "post": "node scripts/post.mjs",
+    "schedule-run": "node scripts/schedule-run.mjs",
+    "mentions": "node scripts/mentions.mjs",
+    "send-replies": "node scripts/send-replies.mjs",
+    "lab-watcher": "node scripts/lab-watcher.mjs"
+  },
+  "dependencies": {
+    "@composio/core": "^0.14.1",
+    "dotenv": "^16.4.5"
+  }
+}

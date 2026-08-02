@@ -1,0 +1,13 @@
+{
+  "_comment": "Repos to poll for completed labs. Each entry watches new commits on `branch` under `path` (or the whole repo if path is omitted). The GitHub Actions cron schedule controls how often this runs, not a value in here.",
+  "repos": [
+    {
+      "owner": "nomso3-og",
+      "repo": "public",
+      "branch": "main",
+      "path": null,
+      "platforms": ["twitter", "linkedin"],
+      "captionTemplate": "Just shipped: {title}\n\n{summary}\n\n{url}"
+    }
+  ]
+}

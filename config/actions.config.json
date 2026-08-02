@@ -1,0 +1,23 @@
+{
+  "_comment": "Tool slugs are per-account and change as toolkits version. Run `npm run list-actions -- <platform>` after connecting each platform and paste the real slugs here before using post.mjs/mentions.mjs for that platform.",
+  "twitter": {
+    "post": "REPLACE_ME",
+    "searchMentions": "REPLACE_ME",
+    "reply": "REPLACE_ME"
+  },
+  "linkedin": {
+    "post": "REPLACE_ME",
+    "searchMentions": "REPLACE_ME",
+    "reply": "REPLACE_ME"
+  },
+  "instagram": {
+    "post": "REPLACE_ME",
+    "searchMentions": "REPLACE_ME",
+    "reply": "REPLACE_ME"
+  },
+  "facebook": {
+    "post": "REPLACE_ME",
+    "searchMentions": "REPLACE_ME",
+    "reply": "REPLACE_ME"
+  }
+}
