@@ -49,6 +49,11 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: node scripts/research-content.mjs
 
+      - name: Write up homelabs (drafts portfolio posts for approval)
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: node scripts/homelab-watcher.mjs
+
       - name: Send approved content
         env:
           COMPOSIO_API_KEY: ${{ secrets.COMPOSIO_API_KEY }}
@@ -58,6 +63,6 @@ jobs:
         run: |
           git config user.name "social-automation-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add state/ scheduled/ drafts/posted/ pending-replies/ pending-posts/
+          git add state/ scheduled/ drafts/posted/ pending-replies/ pending-posts/ homelabs/
           git diff --cached --quiet || git commit -m "chore: update automation state [skip ci]"
           git push

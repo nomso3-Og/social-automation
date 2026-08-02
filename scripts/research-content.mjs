@@ -9,6 +9,7 @@ import { readFile, mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readState, writeState } from '../lib/state.mjs';
+import { STYLE_RULES, findStyleViolations } from '../lib/style.mjs';
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PENDING_DIR = path.join(ROOT, 'pending-posts');
@@ -35,35 +36,54 @@ if (!apiKey) {
 }
 const ai = new GoogleGenAI({ apiKey });
 
-const systemInstruction =
-  'You write LinkedIn posts for a GRC (Governance, Risk, Compliance) analyst ' +
-  'who also works in IT. Given a topic, write one educational, reference-style ' +
-  'post that shares practical knowledge (a checklist, a set of key concepts, or ' +
-  'a short breakdown) the way InfoSec and compliance professionals share ' +
-  'cheat-sheet-style posts. Rules: sound like a real person wrote it, plain ' +
-  'direct sentences, contractions are fine, no corporate marketing language. ' +
-  'Never use an em dash (—) or a double hyphen (--) anywhere in the text. ' +
-  '100 to 250 words. At most 2-3 relevant hashtags at the end. Do not fabricate ' +
-  'statistics, facts, or sources; only state what you are confident is accurate. ' +
-  'Output ONLY the post text, nothing else (no preamble, no "Here is a post:").';
+const systemInstruction = `You write LinkedIn posts for a GRC (Governance,
+Risk, Compliance) analyst who also works in IT. Given a topic, write one
+educational post that shares something practically useful: a short breakdown,
+the handful of things that actually matter, or the part people get wrong.
+Open with a line that tells the reader what this is about.
 
-const response = await ai.models.generateContent({
-  model: 'gemini-flash-latest',
-  contents: `Topic: ${topic}`,
-  config: { systemInstruction },
-});
+Length: 100 to 250 words. At most 2 or 3 hashtags at the end.
+
+${STYLE_RULES}`;
+
+let response;
+try {
+  response = await ai.models.generateContent({
+    model: 'gemini-flash-latest',
+    contents: `Topic: ${topic}`,
+    config: { systemInstruction },
+  });
+} catch (err) {
+  // Gemini's free tier returns a transient 503 under load. Exiting non-zero
+  // would fail the workflow step and take down the rest of the cron run.
+  // State is left untouched, so the next run retries this same topic.
+  console.error(`Content generation unavailable this run: ${err.message?.slice(0, 200) ?? err}`);
+  process.exit(0);
+}
 
 const postText = response.text?.trim();
 if (!postText) {
-  console.error('No text in response.');
-  process.exit(1);
+  console.error('No text in response; leaving state untouched to retry next run.');
+  process.exit(0);
+}
+
+// Surfaced in the draft file rather than auto-corrected: you're reviewing
+// this before it publishes anyway, and a flagged draft is more useful than a
+// silently reworded one.
+const styleFlags = findStyleViolations(postText);
+if (styleFlags.length > 0) {
+  console.warn(`  style flags: ${styleFlags.join('; ')}`);
 }
 
 await mkdir(PENDING_DIR, { recursive: true });
 const fileName = `linkedin-${now}.json`;
 await writeFile(
   path.join(PENDING_DIR, fileName),
-  JSON.stringify({ platform: 'linkedin', topic, text: postText, approved: false }, null, 2) + '\n'
+  JSON.stringify(
+    { platform: 'linkedin', topic, text: postText, approved: false, styleFlags },
+    null,
+    2
+  ) + '\n'
 );
 console.log(`Drafted pending-posts/${fileName}`);
 

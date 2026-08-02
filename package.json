@@ -13,6 +13,7 @@
     "send-replies": "node scripts/send-replies.mjs",
     "lab-watcher": "node scripts/lab-watcher.mjs",
     "research-content": "node scripts/research-content.mjs",
+    "homelab-watcher": "node scripts/homelab-watcher.mjs",
     "send-content": "node scripts/send-content.mjs"
   },
   "dependencies": {
