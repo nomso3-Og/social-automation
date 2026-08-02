@@ -1,0 +1,9 @@
+Binance filed zero suspicious activity reports for six years. Not "too few" — zero. Then the DOJ, FinCEN, OFAC, and CFTC all showed up at once with a $4.3B bill.
+
+I went through the settlement docs and mapped it against the actual BSA five pillars, because "AML compliance failure" gets thrown around a lot without anyone checking which controls were actually missing. Turns out it was 6 of 7. Weak KYC, a VIP program that cut friction for big traders instead of adding scrutiny, sanctioned-jurisdiction users trading for years, no independent audits, ever.
+
+The part that stuck with me: this wasn't a case where the business model couldn't comply. Other exchanges register as money transmitters and screen for sanctions just fine. Binance had internal staff flag the risks and the company just... didn't act on them. That's not a structural problem, that's a governance decision.
+
+Now they're under a monitor for the next 3-5 years rebuilding the whole program from scratch.
+
+Full writeup here if you want the control-by-control breakdown: https://nomso3-og.github.io/social-automation/portfolio/binance-gap-analysis.html
