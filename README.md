@@ -106,7 +106,9 @@ This is the one deliberate safety default in the whole setup: auto-sending a
 bad public reply is hard to take back, auto-posting a lab or a scheduled
 draft you already wrote is not. Flip it by having `mentions.mjs` call
 `send-replies` logic directly instead of writing a pending file, if you'd
-rather it be fully automatic.
+rather it be fully automatic. Once sent, the file moves to
+`pending-replies/posted/<file>` (stamped with `postedAt`) instead of being
+deleted, so you have a browsable history of what actually went out.
 
 **AI-written content → LinkedIn posts:** if `GEMINI_API_KEY` is set,
 `research-content.mjs` picks the next topic from `config/content-topics.json`
@@ -127,7 +129,9 @@ commentary — into `pending-posts/linkedin-<timestamp>.json`:
 Same safety default as mentions, and for the same reason: this is the
 model's own take on a topic, not your own verified work, so it needs your
 review before it goes out. Edit `text` if you want, set `"approved": true`,
-commit+push (or run `npm run send-content` locally). `config/content-topics.json`'s
+commit+push (or run `npm run send-content` locally). Once sent, the file
+moves to `pending-posts/posted/<file>` (stamped with `postedAt`) instead of
+being deleted. `config/content-topics.json`'s
 topics are a starting point for a GRC/IT-focused profile — edit the list to
 match your own field. The prompt in `research-content.mjs` explicitly bans em
 dashes and instructs plain, human phrasing — tune it further if posts still

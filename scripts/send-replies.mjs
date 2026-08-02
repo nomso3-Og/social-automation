@@ -2,11 +2,12 @@
 // Sends any pending-replies/*.json that a human has approved
 // (approved: true and a non-empty replyText), then removes the file.
 import 'dotenv/config';
-import { readdir, readFile, unlink } from 'node:fs/promises';
+import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { getComposio, USER_ID } from '../lib/composio.mjs';
 import { loadActionSlug } from '../lib/actions.mjs';
+import { archivePosted } from '../lib/archive.mjs';
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PENDING_DIR = path.join(ROOT, 'pending-replies');
@@ -47,6 +48,6 @@ for (const file of files) {
     dangerouslySkipVersionCheck: true,
   });
 
-  await unlink(filePath);
-  console.log(`  sent and removed ${file}`);
+  await archivePosted(PENDING_DIR, file, filePath);
+  console.log(`  sent, archived to pending-replies/posted/${file}`);
 }

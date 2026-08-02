@@ -3,11 +3,12 @@
 // a non-empty text), then removes the file. Nothing sends until you review
 // research-content.mjs's draft, edit it if needed, and set "approved": true.
 import 'dotenv/config';
-import { readdir, readFile, unlink } from 'node:fs/promises';
+import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { getComposio } from '../lib/composio.mjs';
 import { publishOne } from './post.mjs';
+import { archivePosted } from '../lib/archive.mjs';
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PENDING_DIR = path.join(ROOT, 'pending-posts');
@@ -42,6 +43,6 @@ for (const file of files) {
   const result = await publishOne(post.platform, post.text, null, composio);
   console.log(`  -> ${result.successful === false ? 'FAILED' : 'ok'}`);
 
-  await unlink(filePath);
-  console.log(`  removed ${file}`);
+  await archivePosted(PENDING_DIR, file, filePath);
+  console.log(`  archived to pending-posts/posted/${file}`);
 }
