@@ -1,5 +1,9 @@
 # social-automation
 
+Also doubles as a portfolio home for finished labs/work — see `portfolio/`.
+Anything dropped there is a candidate for the auto-post pipeline above once
+it's linked up from `config/lab-watch.json`.
+
 Auto-post, schedule, cross-post drafts from `design-studio.html`, reply to
 mentions, and post GitHub "lab completed" commits to social accounts —
 built on [Composio](https://composio.dev), which handles OAuth to each
