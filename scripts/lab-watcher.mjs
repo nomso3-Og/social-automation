@@ -61,6 +61,16 @@ for (const watch of repos) {
       continue;
     }
 
+    // First run for this repo: record the current HEAD as the baseline and
+    // post nothing. Without this, adding a repo to lab-watch.json backfills
+    // whatever commit happens to be latest — auto-posting an old commit to a
+    // live account with no approval step. Watchers should start from "now".
+    if (state.lastSha === null) {
+      console.log(`  first run — baseline set to ${latest.sha.slice(0, 7)}, not posting`);
+      await writeState(stateKey, { lastSha: latest.sha });
+      continue;
+    }
+
     const title = latest.commit.message.split('\n')[0];
     const caption = fillTemplate(captionTemplate ?? '{title}\n\n{url}', {
       title,
