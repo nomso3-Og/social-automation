@@ -44,6 +44,7 @@ for (const file of files) {
   await composio.tools.execute(slug, {
     userId: USER_ID,
     arguments: { text: reply.replyText, in_reply_to_id: reply.mentionId },
+    dangerouslySkipVersionCheck: true,
   });
 
   await unlink(filePath);

@@ -36,6 +36,7 @@ for (const platform of Object.keys(platforms)) {
   const result = await composio.tools.execute(slug, {
     userId: USER_ID,
     arguments: state.lastSeenId ? { since_id: state.lastSeenId } : {},
+    dangerouslySkipVersionCheck: true,
   });
 
   const mentions = result.data?.mentions ?? result.data?.items ?? result.data ?? [];
