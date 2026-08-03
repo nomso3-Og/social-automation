@@ -1,8 +1,0 @@
-{
-  "platform": "linkedin",
-  "source": "nomso3-og/public@4426486",
-  "text": "Just published the design studio improvements branch to the live site.\n\nIt is a small update, but shipping code safely is always the goal. Even routine frontend changes need a clear line of sight from the repository to production. When auditors ask how changes move into live environments, having a direct record of the commit and branch saves you from digging through release logs.\n\nPushed the code, verified the live site, and moved on. Simple change management in practice.\n\n#ITOps #GRC",
-  "approved": false,
-  "styleFlags": [],
-  "issueNumber": 8
-}

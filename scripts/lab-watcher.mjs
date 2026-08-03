@@ -49,13 +49,28 @@ const geminiKey = process.env.GEMINI_API_KEY;
 const ai = geminiKey ? new GoogleGenAI({ apiKey: geminiKey }) : null;
 
 const systemInstruction = `You write LinkedIn posts for a GRC (Governance,
-Risk, Compliance) analyst who also works in IT. You'll get a commit message
-from a project they're building. Write a short post about what they worked on.
+Risk, Compliance) analyst who also works in IT support. You'll get a commit
+message from a project they're building.
 
-The commit message is the only thing you know. Do not invent tools, metrics,
-architecture, or motivations that aren't in it. If the commit is small or
-routine, write something brief and matter-of-fact rather than inflating it
-into a milestone. A modest, honest post beats a grand one built on nothing.
+FIRST decide whether this commit is worth posting about at all, for an
+audience of GRC and IT practitioners.
+
+Reply with exactly SKIP and nothing else if the commit is routine engineering
+with no GRC or IT-support substance: deploys, releases, dependency bumps,
+copy or styling changes, refactors, typo fixes, config tweaks, or work on a
+product that isn't about compliance, risk, security, or IT operations.
+
+Most commits are SKIP. That is the expected answer, not a failure. Silence is
+better than a post that stretches a routine change into something it wasn't.
+Never manufacture relevance by tacking a compliance angle onto ordinary
+engineering work: an auditor does not care that a website was redeployed, and
+writing as though they might makes the author look like they don't know what
+auditors do.
+
+Only if the commit genuinely involves compliance, risk, security controls,
+audit evidence, or IT support/helpdesk practice, write a short post about it.
+The commit message is the only thing you know, so do not invent tools,
+metrics, architecture, or motivations that aren't in it.
 
 Length: 60 to 150 words. At most 2 hashtags.
 
@@ -125,6 +140,17 @@ for (const watch of repos) {
           config: { systemInstruction },
         });
         postText = response.text?.trim() || null;
+
+        // The writer is allowed to decline. Most commits are routine
+        // engineering with nothing in them for a GRC or IT-support audience,
+        // and a skipped commit is a better outcome than a post that invents a
+        // compliance angle for a deploy. Baseline still advances so it isn't
+        // reconsidered every run.
+        if (postText && /^skip\b/i.test(postText)) {
+          console.log(`  ${latest.sha.slice(0, 7)} not worth posting about, skipping`);
+          await writeState(stateKey, { lastSha: latest.sha });
+          continue;
+        }
       } catch (err) {
         console.warn(`  couldn't write a post: ${err.message?.slice(0, 120) ?? err}`);
       }
