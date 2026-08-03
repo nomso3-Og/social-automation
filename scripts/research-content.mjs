@@ -37,10 +37,20 @@ if (!apiKey) {
 const ai = new GoogleGenAI({ apiKey });
 
 const systemInstruction = `You write LinkedIn posts for a GRC (Governance,
-Risk, Compliance) analyst who also works in IT. Given a topic, write one
-educational post that shares something practically useful: a short breakdown,
-the handful of things that actually matter, or the part people get wrong.
-Open with a line that tells the reader what this is about.
+Risk, Compliance) analyst who also works in IT.
+
+Search the web for what's currently being discussed on the given topic, then
+write one post about something specific and current you found: a change to a
+framework, a recurring finding, a shift in what auditors are asking for.
+Prefer a concrete development over a general explainer. Open with a line that
+tells the reader what this is about.
+
+Base the post on what the search actually returned. Do not state anything you
+could not find. If the search turns up nothing current worth writing about,
+say so plainly in one sentence instead of padding it out.
+
+Do not put URLs in the post. Sources are attached separately, and a link you
+type from memory is likely to be wrong.
 
 Length: 100 to 250 words. At most 2 or 3 hashtags at the end.
 
@@ -51,12 +61,14 @@ try {
   response = await ai.models.generateContent({
     model: 'gemini-flash-latest',
     contents: `Topic: ${topic}`,
-    config: { systemInstruction },
+    // Grounds the post in real search results instead of model recall.
+    config: { systemInstruction, tools: [{ googleSearch: {} }] },
   });
 } catch (err) {
-  // Gemini's free tier returns a transient 503 under load. Exiting non-zero
-  // would fail the workflow step and take down the rest of the cron run.
-  // State is left untouched, so the next run retries this same topic.
+  // The free tier returns a transient 503 under load and a 429 once the daily
+  // quota is spent. Exiting non-zero would fail the workflow step and take
+  // down the rest of the cron run. State is left untouched, so the next run
+  // retries this same topic.
   console.error(`Content generation unavailable this run: ${err.message?.slice(0, 200) ?? err}`);
   process.exit(0);
 }
@@ -65,6 +77,27 @@ const postText = response.text?.trim();
 if (!postText) {
   console.error('No text in response; leaving state untouched to retry next run.');
   process.exit(0);
+}
+
+// Sources are taken ONLY from the grounding metadata the search tool returns,
+// never from anything the model wrote. A model asked for citations will
+// happily invent plausible-looking URLs; these are the pages it was actually
+// shown, so they can't be fabricated.
+const grounding = response.candidates?.[0]?.groundingMetadata;
+const sources = (grounding?.groundingChunks ?? [])
+  .map(c => c.web)
+  .filter(w => w?.uri)
+  .map(w => ({ title: w.title ?? w.uri, url: w.uri }));
+
+const searchQueries = grounding?.webSearchQueries ?? [];
+
+// An empty result means the model answered from memory rather than search,
+// which is the failure this whole change exists to prevent. Flagged rather
+// than discarded, since you see the draft before it publishes either way.
+if (sources.length === 0) {
+  console.warn('  NOT GROUNDED: no search sources came back, this is model recall');
+} else {
+  console.log(`  grounded in ${sources.length} source(s) from ${searchQueries.length} search(es)`);
 }
 
 // Surfaced in the draft file rather than auto-corrected: you're reviewing
@@ -80,7 +113,16 @@ const fileName = `linkedin-${now}.json`;
 await writeFile(
   path.join(PENDING_DIR, fileName),
   JSON.stringify(
-    { platform: 'linkedin', topic, text: postText, approved: false, styleFlags },
+    {
+      platform: 'linkedin',
+      topic,
+      text: postText,
+      approved: false,
+      styleFlags,
+      grounded: sources.length > 0,
+      searchQueries,
+      sources,
+    },
     null,
     2
   ) + '\n'

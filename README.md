@@ -118,12 +118,25 @@ rather it be fully automatic. Once sent, the file moves to
 `pending-replies/posted/<file>` (stamped with `postedAt`) instead of being
 deleted, so you have a browsable history of what actually went out.
 
-**AI-written content → LinkedIn posts:** if `GEMINI_API_KEY` is set,
+**Researched content → LinkedIn posts:** if `GEMINI_API_KEY` is set,
 `research-content.mjs` picks the next topic from `config/content-topics.json`
-(rotates through the list, at most once per `cadenceHours`), and uses Gemini's
-free tier to write an original reference/cheat-sheet-style post — the kind of
-"here's a practical breakdown of X" post InfoSec/GRC folks share, not news
-commentary — into `pending-posts/linkedin-<timestamp>.json`:
+(rotating, at most once per `cadenceHours`), **searches the web** for what's
+currently being said about it via Gemini's Google Search grounding, and writes
+a post from what it found into `pending-posts/linkedin-<timestamp>.json`.
+
+The draft records `grounded`, `searchQueries`, and `sources`. **Sources are
+taken only from the search tool's grounding metadata, never from the model's
+own text** — a model asked to cite will invent plausible URLs, so the only
+links that survive are pages it was actually shown. The post itself is told
+not to contain URLs for the same reason.
+
+If a run comes back with no sources, `grounded` is `false` and the approval
+issue says so loudly. That means the model answered from memory rather than
+search, and any factual claim in it needs checking before you approve.
+
+Note the free tier has a **daily quota**. One post per 36 hours is well within
+it, but heavy manual testing can exhaust it for the day; the script logs the
+429 and retries on the next run rather than failing.
 
 ```json
 {
