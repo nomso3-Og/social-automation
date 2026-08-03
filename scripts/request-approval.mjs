@@ -49,13 +49,17 @@ for (const file of files) {
     ? `\n\n**Style flags:** ${draft.styleFlags.join('; ')}`
     : '';
 
+  // Written to read well inside GitHub's notification email, since replying
+  // to that email is the intended way to use this. GitHub turns the reply
+  // into a comment, and check-approvals reads the first line, so a signature
+  // underneath is fine.
   const body = [
-    `Drafted for **${draft.platform}** from ${origin}.`,
+    '### Reply to this email with one word',
     '',
-    'Reply **`approve`** to publish it, or **`decline`** to throw it away.',
+    '**`approve`** publishes it. **`decline`** throws it away.',
     'Nothing posts until you do.',
     '',
-    'To edit before publishing, change `text` in the file below, then reply `approve`.',
+    `Drafted for **${draft.platform}** from ${origin}.`,
     '',
     '---',
     '',
@@ -63,6 +67,9 @@ for (const file of files) {
     '',
     '---',
     `${flags}`,
+    '',
+    '<sub>Want to change the wording first? Edit `text` in the draft file below,',
+    'then reply `approve`. Replying from the GitHub app or the web works too.</sub>',
     '',
     `<sub>Draft file: \`pending-posts/${file}\`</sub>`,
   ].join('\n');

@@ -23,13 +23,27 @@ if (!owner) {
   process.exit(0);
 }
 
-// Whole-word match so "approved the change" or "I'd decline this if..." in a
-// longer note doesn't accidentally trigger. The decision has to be the
-// comment, not a mention inside prose.
+// Matches the first non-empty line, not the whole comment.
+//
+// GitHub lets you reply to its notification emails and posts the reply as a
+// comment, which is the main way this gets used: reply "approve" from a phone
+// without opening anything. Mail clients append signatures ("Sent from my
+// iPhone", "--\nName"), so requiring the entire comment to be one word meant
+// every real phone reply was silently ignored.
+//
+// Reading only the first line keeps the protection that matters: the decision
+// still has to stand alone, so "I'd approve this if the hashtags were fixed"
+// does not publish a post.
 function decisionFrom(text) {
-  const t = text.trim().toLowerCase().replace(/[.!\s]+$/, '');
-  if (/^approve(d)?$/.test(t) || /^\/approve$/.test(t)) return 'approve';
-  if (/^decline(d)?$/.test(t) || /^\/decline$/.test(t) || /^reject$/.test(t)) return 'decline';
+  const firstLine = (text ?? '')
+    .split('\n')
+    .map(l => l.trim())
+    .find(l => l.length > 0);
+  if (!firstLine) return null;
+
+  const t = firstLine.toLowerCase().replace(/^[>*\s]+/, '').replace(/[.!,\s]+$/, '');
+  if (/^\/?approve(d)?$/.test(t) || /^(yes|ship it|lgtm)$/.test(t)) return 'approve';
+  if (/^\/?decline(d)?$/.test(t) || /^(reject|no|nope)$/.test(t)) return 'decline';
   return null;
 }
 

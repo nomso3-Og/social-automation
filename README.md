@@ -155,18 +155,26 @@ rather than invent details, so vague notes give a vague post. Files are
 tracked by content hash in `state/homelab-seen.json`: re-running does
 nothing, editing a write-up regenerates it. See `homelabs/README.md`.
 
-**Approving from your phone:** every new draft opens a GitHub issue assigned
-to you, which is what makes the GitHub mobile app push a notification. Reply
-`approve` to publish or `decline` to throw it away, and the next run acts on
-it. To edit first, change `text` in the draft file, then reply `approve`.
+**Approving from email:** every new draft opens a GitHub issue assigned to
+you, so GitHub emails you and the mobile app pushes a notification. **Reply
+to that email with `approve`** and the post goes out on the next run.
+`decline` throws it away. You don't have to open GitHub at all: replying to a
+GitHub notification posts your reply as a comment, which is what this reads.
+
+`yes` / `lgtm` / `ship it` also approve; `no` / `reject` also decline.
+
+Only the first line is read, so a phone signature underneath (`Sent from my
+iPhone`) is fine. The decision still has to stand on its own line, so "I'd
+approve this if the hashtags were fixed" does **not** publish anything.
 
 Only comments from the repo owner count. Anyone can comment on a public
 repo's issues and a comment here publishes to your real account, so the
 author check in `check-approvals.mjs` is the security boundary of the whole
-flow. Don't loosen it. The word has to be the whole comment, so "I'd approve
-this if..." doesn't fire.
+flow. Don't loosen it. Email replies satisfy it because GitHub only accepts
+them from an address attached to your account.
 
-Editing `approved` in the JSON directly still works if you'd rather.
+To reword before publishing, edit `text` in the draft file, then reply
+`approve`. Setting `approved` in the JSON by hand still works too.
 
 **House style:** `lib/style.mjs` holds the voice rules both writers share: a
 banned-phrase list (`delve`, `testament`, `in today's digital age`, and the
