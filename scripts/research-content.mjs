@@ -5,7 +5,7 @@
 // config/content-topics.json's cadenceHours, tracked in state/content-gen.json.
 import 'dotenv/config';
 import { GoogleGenAI } from '@google/genai';
-import { readFile, mkdir, writeFile } from 'node:fs/promises';
+import { readFile, readdir, mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readState, writeState } from '../lib/state.mjs';
@@ -13,6 +13,7 @@ import { STYLE_RULES, findStyleViolations } from '../lib/style.mjs';
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PENDING_DIR = path.join(ROOT, 'pending-posts');
+const TOPICS_DIR = path.join(ROOT, 'topics');
 
 const config = JSON.parse(
   await readFile(path.join(ROOT, 'config', 'content-topics.json'), 'utf8')
@@ -26,8 +27,35 @@ if (state.lastGeneratedAt && now - state.lastGeneratedAt < cadenceMs) {
   process.exit(0);
 }
 
-const topic = config.topics[state.topicIndex % config.topics.length];
-console.log(`Writing about: ${topic}`);
+// A researched brief in topics/ beats the generic rotating list: it carries
+// real, checkable facts and real source URLs, so the post can say something
+// specific instead of restating what the model already knew. Live search
+// grounding is quota-limited on the free tier, so this is where currency
+// actually comes from.
+async function nextBrief() {
+  let files;
+  try {
+    files = (await readdir(TOPICS_DIR)).filter(f => f.endsWith('.json')).sort();
+  } catch (err) {
+    if (err.code === 'ENOENT') return null;
+    throw err;
+  }
+  const used = new Set((await readState('topics-used', { used: [] })).used);
+  const next = files.find(f => !used.has(f));
+  if (!next) return null;
+
+  const brief = JSON.parse(await readFile(path.join(TOPICS_DIR, next), 'utf8'));
+  return { file: next, brief };
+}
+
+const picked = await nextBrief();
+const topic = picked ? picked.brief.title : config.topics[state.topicIndex % config.topics.length];
+
+if (picked) {
+  console.log(`Writing from topics/${picked.file}: ${topic}`);
+} else {
+  console.log(`No unused briefs in topics/, falling back to the generic list: ${topic}`);
+}
 
 const apiKey = process.env.GEMINI_API_KEY;
 if (!apiKey) {
@@ -51,6 +79,29 @@ say so plainly in one sentence instead of padding it out.
 
 Do not put URLs in the post. Sources are attached separately, and a link you
 type from memory is likely to be wrong.
+
+Length: 100 to 250 words. At most 2 or 3 hashtags at the end.
+
+${STYLE_RULES}`;
+
+// Used when a researched brief is available. The brief's key points are the
+// only facts in play, so no search is needed and nothing has to be recalled.
+const BRIEF_INSTRUCTION = `You write LinkedIn posts for a GRC (Governance,
+Risk, Compliance) analyst who also works in IT support.
+
+You'll get a researched brief: an angle and a set of key points. Write one
+post from it. Open with a line that tells the reader what this is about, then
+make the point the angle is driving at.
+
+The key points are the only facts you have. Use them and nothing else. Do not
+add statistics, dates, framework versions, company names, or claims that
+aren't in the brief, and do not soften a specific number into a vague one. You
+don't have to use every point; pick the ones that make the strongest post.
+
+Write it as someone who works in this field talking to peers, not as a summary
+of an article. The reader should get something they can act on or argue with.
+
+Do not put URLs in the post. Sources are attached to the draft separately.
 
 Length: 100 to 250 words. At most 2 or 3 hashtags at the end.
 
@@ -83,31 +134,57 @@ ${STYLE_RULES}`;
 // ungrounded and label it. A flagged evergreen post beats silence, and the
 // approval issue makes clear which one you're reading.
 let response;
-let groundingAttempted = true;
 
-try {
-  response = await ai.models.generateContent({
-    model: 'gemini-flash-latest',
-    contents: `Topic: ${topic}`,
-    config: { systemInstruction, tools: [{ googleSearch: {} }] },
-  });
-} catch (err) {
-  const status = err?.status;
-  console.warn(`  search grounding unavailable (${status ?? 'error'}), falling back to no search`);
+if (picked) {
+  // A brief already carries researched facts and real sources, so there's
+  // nothing to search for and no quota to spend.
+  const b = picked.brief;
+  const prompt = [
+    `Topic: ${b.title}`,
+    b.angle ? `Angle: ${b.angle}` : null,
+    'Key points:',
+    ...(b.keyPoints ?? []).map(p => `- ${p}`),
+  ]
+    .filter(Boolean)
+    .join('\n');
 
   try {
     response = await ai.models.generateContent({
       model: 'gemini-flash-latest',
-      contents: `Topic: ${topic}`,
-      config: { systemInstruction: UNGROUNDED_INSTRUCTION },
+      contents: prompt,
+      config: { systemInstruction: BRIEF_INSTRUCTION },
     });
-    groundingAttempted = false;
-  } catch (err2) {
-    // Both paths gone: quota spent or the API is down. Exiting non-zero would
-    // fail the workflow step and take the rest of the cron run with it. State
-    // is left untouched, so the next run retries this same topic.
-    console.error(`Content generation unavailable this run: ${err2.message?.slice(0, 160) ?? err2}`);
+  } catch (err) {
+    console.error(`Content generation unavailable this run: ${err.message?.slice(0, 160) ?? err}`);
     process.exit(0);
+  }
+} else {
+  // No brief left. Try live search, and fall back to writing without it.
+  // Google Search grounding has its own free-tier quota, far smaller than the
+  // one for ordinary generation: a plain call can succeed while the grounded
+  // call returns 429. Without the fallback the writer would retry forever and
+  // never produce anything.
+  try {
+    response = await ai.models.generateContent({
+      model: 'gemini-flash-latest',
+      contents: `Topic: ${topic}`,
+      config: { systemInstruction, tools: [{ googleSearch: {} }] },
+    });
+  } catch (err) {
+    console.warn(`  search grounding unavailable (${err?.status ?? 'error'}), falling back to no search`);
+    try {
+      response = await ai.models.generateContent({
+        model: 'gemini-flash-latest',
+        contents: `Topic: ${topic}`,
+        config: { systemInstruction: UNGROUNDED_INSTRUCTION },
+      });
+    } catch (err2) {
+      // Both paths gone: quota spent or the API is down. Exiting non-zero
+      // would fail the step and take the rest of the cron run with it. State
+      // is left untouched, so the next run retries this same topic.
+      console.error(`Content generation unavailable this run: ${err2.message?.slice(0, 160) ?? err2}`);
+      process.exit(0);
+    }
   }
 }
 
@@ -117,23 +194,24 @@ if (!postText) {
   process.exit(0);
 }
 
-// Sources are taken ONLY from the grounding metadata the search tool returns,
-// never from anything the model wrote. A model asked for citations will
-// happily invent plausible-looking URLs; these are the pages it was actually
-// shown, so they can't be fabricated.
+// Sources never come from the model's own text. When a brief was used they're
+// the URLs a human put in it; otherwise they're the pages the search tool
+// actually returned. A model asked to cite will invent plausible-looking
+// links, so neither path lets it write its own.
 const grounding = response.candidates?.[0]?.groundingMetadata;
-const sources = (grounding?.groundingChunks ?? [])
-  .map(c => c.web)
-  .filter(w => w?.uri)
-  .map(w => ({ title: w.title ?? w.uri, url: w.uri }));
-
 const searchQueries = grounding?.webSearchQueries ?? [];
 
-// An empty result means the model answered from memory rather than search,
-// which is the failure this whole change exists to prevent. Flagged rather
-// than discarded, since you see the draft before it publishes either way.
-if (sources.length === 0) {
-  console.warn('  NOT GROUNDED: no search sources came back, this is model recall');
+const sources = picked
+  ? (picked.brief.sources ?? []).filter(s => s?.url)
+  : (grounding?.groundingChunks ?? [])
+      .map(c => c.web)
+      .filter(w => w?.uri)
+      .map(w => ({ title: w.title ?? w.uri, url: w.uri }));
+
+if (picked) {
+  console.log(`  written from a researched brief, ${sources.length} source(s)`);
+} else if (sources.length === 0) {
+  console.warn('  NOT GROUNDED: no brief and no search sources, this is model recall');
 } else {
   console.log(`  grounded in ${sources.length} source(s) from ${searchQueries.length} search(es)`);
 }
@@ -158,6 +236,7 @@ await writeFile(
       approved: false,
       styleFlags,
       grounded: sources.length > 0,
+      briefFile: picked ? `topics/${picked.file}` : null,
       searchQueries,
       sources,
     },
@@ -166,5 +245,12 @@ await writeFile(
   ) + '\n'
 );
 console.log(`Drafted pending-posts/${fileName}`);
+
+// Recorded only after the draft is safely written, so a failure mid-run
+// doesn't burn a brief without producing anything.
+if (picked) {
+  const used = await readState('topics-used', { used: [] });
+  await writeState('topics-used', { used: [...used.used, picked.file] });
+}
 
 await writeState('content-gen', { lastGeneratedAt: now, topicIndex: state.topicIndex + 1 });

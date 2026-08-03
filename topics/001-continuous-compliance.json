@@ -1,0 +1,15 @@
+{
+  "title": "Audits are moving from point-in-time sampling to continuous evidence",
+  "researchedAt": "2026-08-03",
+  "angle": "The audit model itself is changing. Teams that still treat compliance as an annual scramble are optimising for a process that is on its way out.",
+  "keyPoints": [
+    "Auditors are increasingly relying on continuous evidence streams rather than point-in-time sampling.",
+    "Traditional GRC programmes were built around periodic audits and manual processes, which meant teams spent more time preparing for audits than actually managing risk.",
+    "The 2026 direction is control rationalisation: streamlining control catalogues rather than expanding them.",
+    "Integrated platforms are replacing siloed tools, pulling risk, compliance, audit and reporting into one place."
+  ],
+  "sources": [
+    { "title": "GRC Trends for 2026: What Leaders Need to Know", "url": "https://www.boc-group.com/en/blog/grc/grc-trends-2026/" },
+    { "title": "Top Six GRC Trends for 2026", "url": "https://www.redfoxsec.com/blog/top-six-grc-trends-for-2026-what-every-risk-and-compliance-leader-needs-to-know" }
+  ]
+}

@@ -118,6 +118,25 @@ rather it be fully automatic. Once sent, the file moves to
 `pending-replies/posted/<file>` (stamped with `postedAt`) instead of being
 deleted, so you have a browsable history of what actually went out.
 
+**Researched briefs → LinkedIn posts:** the main source of on-topic content.
+`topics/` holds one `.json` per researched topic: an angle, a set of checkable
+key points, and real source URLs. The writer takes the oldest unused brief and
+writes a post from it, with the key points as the only facts in play and the
+brief's sources attached to the draft.
+
+This is where currency comes from, because live search grounding is
+quota-limited on the free tier and usually unavailable. Researching up front
+and committing the result sidesteps that entirely.
+
+Add your own by dropping a `.json` in `topics/` and committing it. `title`,
+`angle`, and `keyPoints` are enough; sources are optional. See
+`topics/README.md`. Used briefs are tracked in `state/topics-used.json` and
+stay in the folder as a record.
+
+When every brief has been used, the writer falls back to live search, and then
+to the generic rotating list in `config/content-topics.json`, which is
+evergreen and uncited. So it's worth keeping `topics/` stocked.
+
 **Researched content → LinkedIn posts:** if `GEMINI_API_KEY` is set,
 `research-content.mjs` picks the next topic from `config/content-topics.json`
 (rotating, at most once per `cadenceHours`), **searches the web** for what's
