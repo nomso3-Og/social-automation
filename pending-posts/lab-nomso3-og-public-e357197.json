@@ -1,0 +1,8 @@
+{
+  "platform": "linkedin",
+  "source": "nomso3-og/public@e357197",
+  "text": "Pushed commit fd48cf9 to the live site today. This release pushes the recent design studio improvements directly to production.\n\nSmall releases make change management easier. When an auditor asks to see proof of deployment controls, having a direct commit history attached to a specific working branch saves time. It keeps production aligned with the repository without adding extra operational overhead.\n\nThe updates are live.\n\n#ITOperations #BuildInPublic",
+  "approved": false,
+  "styleFlags": [],
+  "issueNumber": 13
+}

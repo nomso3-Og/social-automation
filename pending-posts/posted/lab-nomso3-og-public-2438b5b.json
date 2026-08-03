@@ -2,7 +2,8 @@
   "platform": "linkedin",
   "source": "nomso3-og/public@2438b5b",
   "text": "Reverted a temporary CI change today. We previously disarmed auto-publish while force-pushing branches, ensuring incomplete branch rewrites didn't trigger automated releases. \n\nThe branch work is done, so auto-publish is re-enabled by reverting that commit. \n\nDisabling automation during heavy maintenance is fine. Forgetting to turn it back on is where IT controls fail during an audit. Reverting the temporary bypass keeps the pipeline clean and compliant.\n\n#DevOps #CI",
-  "approved": false,
+  "approved": true,
   "styleFlags": [],
-  "issueNumber": 11
+  "issueNumber": 11,
+  "postedAt": "2026-08-03T07:48:26.205Z"
 }
