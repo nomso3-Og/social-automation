@@ -56,21 +56,59 @@ Length: 100 to 250 words. At most 2 or 3 hashtags at the end.
 
 ${STYLE_RULES}`;
 
+// Used when search grounding isn't available. Deliberately does not ask for
+// anything current: with no search, "recent" claims would be invented.
+const UNGROUNDED_INSTRUCTION = `You write LinkedIn posts for a GRC
+(Governance, Risk, Compliance) analyst who also works in IT. Write one
+educational post on the given topic that shares something practically useful:
+a short breakdown, the handful of things that actually matter, or the part
+people get wrong. Open with a line that tells the reader what this is about.
+
+You have no web access for this. Write only durable, well-established
+material. Do not reference recent news, this year's changes, current trends,
+or anything time-sensitive, and do not cite sources or include URLs, because
+you cannot verify any of it.
+
+Length: 100 to 250 words. At most 2 or 3 hashtags at the end.
+
+${STYLE_RULES}`;
+
+// Google Search grounding has its own free-tier quota, far smaller than the
+// one for ordinary generation: a plain call can succeed while the grounded
+// call returns 429. Without a fallback the writer would retry the grounded
+// call forever and never produce anything, which is worse than the evergreen
+// posts it used to write.
+//
+// So: try grounded, and if only the grounding is unavailable, write the post
+// ungrounded and label it. A flagged evergreen post beats silence, and the
+// approval issue makes clear which one you're reading.
 let response;
+let groundingAttempted = true;
+
 try {
   response = await ai.models.generateContent({
     model: 'gemini-flash-latest',
     contents: `Topic: ${topic}`,
-    // Grounds the post in real search results instead of model recall.
     config: { systemInstruction, tools: [{ googleSearch: {} }] },
   });
 } catch (err) {
-  // The free tier returns a transient 503 under load and a 429 once the daily
-  // quota is spent. Exiting non-zero would fail the workflow step and take
-  // down the rest of the cron run. State is left untouched, so the next run
-  // retries this same topic.
-  console.error(`Content generation unavailable this run: ${err.message?.slice(0, 200) ?? err}`);
-  process.exit(0);
+  const status = err?.status;
+  console.warn(`  search grounding unavailable (${status ?? 'error'}), falling back to no search`);
+
+  try {
+    response = await ai.models.generateContent({
+      model: 'gemini-flash-latest',
+      contents: `Topic: ${topic}`,
+      config: { systemInstruction: UNGROUNDED_INSTRUCTION },
+    });
+    groundingAttempted = false;
+  } catch (err2) {
+    // Both paths gone: quota spent or the API is down. Exiting non-zero would
+    // fail the workflow step and take the rest of the cron run with it. State
+    // is left untouched, so the next run retries this same topic.
+    console.error(`Content generation unavailable this run: ${err2.message?.slice(0, 160) ?? err2}`);
+    process.exit(0);
+  }
 }
 
 const postText = response.text?.trim();
