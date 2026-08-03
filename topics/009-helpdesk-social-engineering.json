@@ -1,0 +1,17 @@
+{
+  "title": "The service desk is an identity control, and attackers know it",
+  "researchedAt": "2026-08-03",
+  "angle": "Sits squarely where IT support and security meet. The helpdesk password reset is a real attack path, and the fix is a workflow change rather than a product.",
+  "keyPoints": [
+    "Helpdesks are a frequent social engineering target because they sit where identity, access and urgent requests meet.",
+    "Remote and hybrid work made it worse: agents are less likely to personally know the person calling, so impersonation is easier.",
+    "Deepfake helpdesk calls and AI assisted social engineering are part of the current threat picture, not a hypothetical one.",
+    "A concrete control: require verification such as a live video call, photo ID or manager attestation before issuing a Temporary Access Pass, and make that pass one time use with a short validity window.",
+    "Pair it with a standing script that refuses out of band reset requests where the ticket origin has not been verified.",
+    "On the authentication side, FIDO2 and WebAuthn passkeys tie approval to a device or cryptographic key, which is what actually defeats push bombing, SIM swapping and credential phishing."
+  ],
+  "sources": [
+    { "title": "Anatomy of a Helpdesk Social Engineering Attack", "url": "https://fieldeffect.com/blog/anatomy-helpdesk-social-engineering-attack" },
+    { "title": "Phishing-Resistant MFA: The 2026 Enterprise Playbook", "url": "https://hideez.com/blogs/news/phishing-resistant-mfa" }
+  ]
+}

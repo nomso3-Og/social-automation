@@ -1,0 +1,17 @@
+{
+  "title": "Questionnaire fatigue is making third party risk data worse, not better",
+  "researchedAt": "2026-08-03",
+  "angle": "Sending more questionnaires is actively degrading the answers you get back, at exactly the moment third party breaches are climbing. Good tension for a post.",
+  "keyPoints": [
+    "Vendors are routinely asked to complete dozens and sometimes hundreds of security questionnaires a year, often duplicating each other.",
+    "Fatigued vendors rush, answer incompletely, or make errors, so the volume of assessment is degrading the quality of the data it produces.",
+    "Verizon's 2026 DBIR found third party involvement in breaches rose 60 percent, and breaches involving a third party now account for 48 percent of all breaches.",
+    "65 percent of large companies name third party and supply chain vulnerabilities as their biggest cyber resilience challenge, up from 54 percent the year before.",
+    "The UK NCSC reports only 14 percent of firms feel on top of the risks posed by their immediate suppliers.",
+    "The direction being pushed is contextual assurance: data driven signals instead of repeat questionnaires."
+  ],
+  "sources": [
+    { "title": "Enhancing Third Party Risk Management: From Questionnaire Fatigue to Contextual Assurance", "url": "https://www.isaca.org/resources/news-and-trends/industry-news/2026/enhancing-third-party-risk-management-moving-from-questionnaire-fatigue-to-contextual-assurance" },
+    { "title": "Vendor Security Questionnaire Fatigue", "url": "https://panorays.com/blog/vendor-security-questionnaire-fatigue/" }
+  ]
+}

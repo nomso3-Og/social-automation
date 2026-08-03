@@ -1,0 +1,17 @@
+{
+  "title": "DORA's Register of Information exposed who actually knows their vendors",
+  "researchedAt": "2026-08-03",
+  "angle": "A reporting requirement quietly turned into an inventory audit, and a lot of organisations failed it. Good example of a control revealing a problem nobody knew they had.",
+  "keyPoints": [
+    "The Register of Information has been the single most operationally difficult DORA requirement for in scope financial entities.",
+    "The 2025 pilot submission round showed a consistent pattern: organisations that believed their vendor relationships were documented found they had no centralised view of ICT contracts, with arrangements spread across procurement, business units and subsidiaries.",
+    "DORA applied from January 2025 and is now in its first real supervisory enforcement cycle, with regulators signalling they will act on incident reporting failures and persistent register deficiencies.",
+    "Supervisors in Germany, the Netherlands and France have named persistent register deficiencies as an enforcement priority.",
+    "Roughly half of in scope financial institutions expected to reach full DORA compliance by end of 2025, with many pushing into 2026.",
+    "Two things compliance teams are prioritising: mapping one control library across DORA, NIS2, ISO 27001 and NIST CSF to cut duplicate work, and fixing incident response first because the 24 and 72 hour clocks are where most programmes fail."
+  ],
+  "sources": [
+    { "title": "DORA Enforcement Arrives and NIS2 Hits Its October Deadline", "url": "https://compliancehub.wiki/dora-nis2-2026-enforcement-eu-financial-cyber-resilience-compliance/" },
+    { "title": "NIS2, DORA and ISO 27001: 2026 Compliance Manual", "url": "https://kymatio.com/blog/nis2-iso-27001-and-dora-compliance-manual-version-2026" }
+  ]
+}
