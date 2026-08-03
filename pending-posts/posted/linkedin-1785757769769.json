@@ -2,7 +2,7 @@
   "platform": "linkedin",
   "topic": "Audits are moving from point-in-time sampling to continuous evidence",
   "text": "The annual audit scramble is becoming obsolete. If your team still spends weeks panic-collecting screenshots every Q4, you are optimizing for a compliance model that is on its way out.\n\nAuditors are shifting away from point-in-time sampling. They want continuous evidence streams.\n\nTraditional GRC programs were built around periodic audits and manual evidence collection. The reality was frustrating: we spent far more time preparing for audits than actually managing risk. That friction shows up everywhere, from compliance spreadsheets down to the service desk queue when evidence requests land.\n\nThe direction for 2026 is control rationalisation. The goal now is streamlining control catalogues, not adding dozens of redundant checks to them.\n\nTo make that work, integrated platforms are replacing siloed tools. They pull risk, compliance, audit, and reporting into one place. If compliance still feels like a massive seasonal fire drill for your IT and security teams, your processes are built for the past.\n\n#GRC #compliance #audit",
-  "approved": false,
+  "approved": true,
   "styleFlags": [],
   "grounded": true,
   "briefFile": "topics/001-continuous-compliance.json",
@@ -17,5 +17,6 @@
       "url": "https://www.redfoxsec.com/blog/top-six-grc-trends-for-2026-what-every-risk-and-compliance-leader-needs-to-know"
     }
   ],
-  "issueNumber": 17
+  "issueNumber": 17,
+  "postedAt": "2026-08-03T13:59:18.587Z"
 }
