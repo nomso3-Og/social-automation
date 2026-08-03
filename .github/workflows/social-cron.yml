@@ -75,10 +75,14 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node scripts/request-approval.mjs
 
+      # Last, so the page reflects everything the run just did.
+      - name: Rebuild the live status page
+        run: node scripts/build-dashboard.mjs
+
       - name: Commit state changes
         run: |
           git config user.name "social-automation-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add state/ scheduled/ drafts/posted/ pending-replies/ pending-posts/ homelabs/
+          git add state/ scheduled/ drafts/posted/ pending-replies/ pending-posts/ homelabs/ topics/ index.html
           git diff --cached --quiet || git commit -m "chore: update automation state [skip ci]"
           git push

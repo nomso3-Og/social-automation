@@ -118,6 +118,13 @@ rather it be fully automatic. Once sent, the file moves to
 `pending-replies/posted/<file>` (stamped with `postedAt`) instead of being
 deleted, so you have a browsable history of what actually went out.
 
+**Live status page:** `build-dashboard.mjs` regenerates `index.html` from the
+repo's actual state at the end of every run, and it's served by GitHub Pages
+at https://nomso3-og.github.io/social-automation/. Queue depths, what's
+awaiting approval, and what's been published are read from disk at build time,
+so the page is the live state of the pipeline rather than a picture of it.
+Useful for explaining the setup to someone without walking them through a repo.
+
 **Researched briefs → LinkedIn posts:** the main source of on-topic content.
 `topics/` holds one `.json` per researched topic: an angle, a set of checkable
 key points, and real source URLs. The writer takes the oldest unused brief and
