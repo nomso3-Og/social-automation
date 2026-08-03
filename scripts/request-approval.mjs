@@ -49,6 +49,22 @@ for (const file of files) {
     ? `\n\n**Style flags:** ${draft.styleFlags.join('; ')}`
     : '';
 
+  // Sources come from the search tool's grounding metadata, so they're pages
+  // the model was actually shown. Worth a glance before approving a post that
+  // makes a factual claim.
+  let sourceBlock = '';
+  if (Array.isArray(draft.sources) && draft.sources.length > 0) {
+    const list = draft.sources
+      .slice(0, 6)
+      .map(s => `- [${(s.title ?? s.url).slice(0, 90)}](${s.url})`)
+      .join('\n');
+    sourceBlock = `\n\n**Sources it read:**\n${list}`;
+  } else if (draft.grounded === false) {
+    sourceBlock =
+      '\n\n> **Not grounded.** No search results came back, so this is written ' +
+      'from the model\'s general knowledge. Check any factual claim before approving.';
+  }
+
   // Written to read well inside GitHub's notification email, since replying
   // to that email is the intended way to use this. GitHub turns the reply
   // into a comment, and check-approvals reads the first line, so a signature
@@ -66,7 +82,7 @@ for (const file of files) {
     draft.text,
     '',
     '---',
-    `${flags}`,
+    `${flags}${sourceBlock}`,
     '',
     '<sub>Want to change the wording first? Edit `text` in the draft file below,',
     'then reply `approve`. Replying from the GitHub app or the web works too.</sub>',
