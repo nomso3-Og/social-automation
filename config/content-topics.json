@@ -1,6 +1,6 @@
 {
   "_comment": "Topics the AI writes original, reference/cheat-sheet-style LinkedIn posts about. Rotates through in order; cadenceHours controls how often a new draft is generated, checked on every cron tick.",
-  "cadenceHours": 36,
+  "cadenceHours": 48,
   "topics": [
     "GRC frameworks and how they relate to each other (ISO 27001, NIST CSF, SOC 2)",
     "IT risk management basics for people new to the field",
@@ -10,5 +10,6 @@
     "cybersecurity governance in IT teams",
     "common gaps in AML/BSA compliance programs",
     "how to read a compliance audit finding"
-  ]
+  ],
+  "_cadence": "48h is roughly 3-4 posts a week. Lower it for more, raise it for fewer."
 }

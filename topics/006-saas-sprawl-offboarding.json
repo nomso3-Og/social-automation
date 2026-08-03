@@ -1,0 +1,17 @@
+{
+  "title": "Offboarding cannot close accounts nobody knows exist",
+  "researchedAt": "2026-08-03",
+  "angle": "Sits exactly where IT support and GRC overlap. The access review control everyone documents is undermined by an app inventory nobody actually has.",
+  "keyPoints": [
+    "A mid sized company typically runs between 80 and 150 SaaS applications, and IT usually knows about roughly half.",
+    "When someone leaves, IT can only deprovision what it knows about, so accounts in unknown apps stay live indefinitely.",
+    "That produces orphaned accounts at scale, and no offboarding process can close them because nobody knows the applications are there.",
+    "The gaps break down into three kinds: visibility, control, and response.",
+    "A practical combination that covers most of it without blocking people: a SaaS audit, SSO, a light approval path for new tools, and a quarterly access review.",
+    "Scanning corporate email for SaaS signup and billing messages is one of the more complete discovery methods available."
+  ],
+  "sources": [
+    { "title": "SaaS Sprawl Has Become the New Shadow IT", "url": "https://securityboulevard.com/2026/03/saas-sprawl-has-become-the-new-shadow-it-why-traditional-security-struggles-to-see-and-stop-it/" },
+    { "title": "Shadow IT Discovery: A Complete 2026 Guide", "url": "https://www.nudgesecurity.com/post/shadow-it-discovery" }
+  ]
+}

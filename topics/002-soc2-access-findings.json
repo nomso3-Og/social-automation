@@ -1,0 +1,16 @@
+{
+  "title": "Access control is the finding that shows up in most SOC 2 reports",
+  "researchedAt": "2026-08-03",
+  "angle": "The most common SOC 2 exceptions are not exotic. They are access reviews that were written down and then not done, which is a governance problem rather than a technical one.",
+  "keyPoints": [
+    "Access control findings appear in the majority of SOC 2 reports, and they are largely avoidable.",
+    "Recurring specifics: terminated employees keeping access for days or weeks, shared credentials, generic admin accounts, service accounts used by several people.",
+    "A very common exception is defining a quarterly access review in policy and then not running it on schedule, not documenting that it was done, or not remediating the excess access it found.",
+    "The pattern underneath most exceptions is a control that exists in the policy document but is not followed in practice.",
+    "On evidence: export from the source system where possible, because source-system reports carry more weight than hand-edited summaries."
+  ],
+  "sources": [
+    { "title": "SOC 2 Audit Exceptions and Common Findings", "url": "https://www.cyberpulse.com.au/2026/01/21/blog-soc-2-audit-exceptions-and-common-findings/" },
+    { "title": "Common SOC 2 Audit Findings: What Fails & How to Avoid It", "url": "https://www.glocertinternational.com/resources/articles/common-soc-2-audit-findings/" }
+  ]
+}

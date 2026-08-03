@@ -1,0 +1,16 @@
+{
+  "title": "The ISO 27001:2022 transition deadline has passed",
+  "researchedAt": "2026-08-03",
+  "angle": "The deadline is behind us, so this is no longer a planning topic. Anyone still on the 2013 certificate is uncertified, and the restructure is worth understanding on its own terms.",
+  "keyPoints": [
+    "The transition deadline was 31 October 2025. A 2013 certificate that was not transitioned is no longer valid.",
+    "Annex A went from 114 controls across 14 domains to 93 controls across four themes: organisational, people, physical, technological.",
+    "Eleven controls are entirely new, and 57 were merged into 24.",
+    "Every remaining control got updated language.",
+    "A recurring implementation complaint: teams buy the standard without ISO 27002, then struggle because Annex A descriptions are high level and leave a lot open to interpretation."
+  ],
+  "sources": [
+    { "title": "ISO 27001:2022 Transition: What You Need to Know", "url": "https://www.cbh.com/insights/articles/iso-270012022-transition-what-you-need-to-know/" },
+    { "title": "ISO 27001 Annex A Controls List", "url": "https://gaicc.org/blog/iso-27001-annex-a-controls-list/" }
+  ]
+}
