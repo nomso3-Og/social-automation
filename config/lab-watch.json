@@ -1,14 +1,6 @@
 {
   "_comment": "Repos to poll for new commits. Each entry watches `branch` under `path` (or the whole repo if path is omitted). A new commit drafts a post into pending-posts/ for approval; nothing publishes on its own. The GitHub Actions cron schedule controls how often this runs, not a value in here.",
+  "_whatBelongsHere": "Only repos whose commits are genuinely about your field: GRC work, IT support/helpdesk tooling, compliance automation, security engineering. An app repo whose commits are 'deploy the frontend' does not belong here. There is no GRC substance in a routine deploy, so the writer manufactures it, and you end up posting about auditors reviewing a website release. nomso3-og/public (the design studio app) was removed for exactly that reason.",
   "_captionTemplate": "Only used as a fallback when GEMINI_API_KEY is missing or the call fails. Normally the post is written from the commit. {url} is left empty for private repos, since readers can't open those links.",
-  "repos": [
-    {
-      "owner": "nomso3-og",
-      "repo": "public",
-      "branch": "main",
-      "path": null,
-      "platforms": ["linkedin"],
-      "captionTemplate": "Just shipped: {title}\n\n{summary}"
-    }
-  ]
+  "repos": []
 }
