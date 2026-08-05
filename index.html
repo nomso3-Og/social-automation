@@ -72,10 +72,10 @@
   numbers below are the live state of the queue.</p>
 
   <div class="stats">
-    <div class="stat"><div class="stat-n">9</div><div class="stat-l">research briefs queued</div></div>
-    <div class="stat"><div class="stat-n">0</div><div class="stat-l">awaiting my approval</div></div>
+    <div class="stat"><div class="stat-n">8</div><div class="stat-l">research briefs queued</div></div>
+    <div class="stat"><div class="stat-n">1</div><div class="stat-l">awaiting my approval</div></div>
     <div class="stat"><div class="stat-n">3</div><div class="stat-l">published</div></div>
-    <div class="stat"><div class="stat-n">in 1h</div><div class="stat-l">next draft</div></div>
+    <div class="stat"><div class="stat-n">in 48h</div><div class="stat-l">next draft</div></div>
   </div>
 
   <div class="h2n">Stage 1</div>
@@ -91,7 +91,7 @@
     </div>
     <div class="node-s">research-content.mjs</div>
     <div class="node-d">Takes the next researched brief and writes a post from its key points. Sources are attached to the draft.</div>
-    <div class="node-state"><strong>9</strong> queued &middot; next in 1h</div>
+    <div class="node-state"><strong>8</strong> queued &middot; next in 48h</div>
   </div>
     
   <div class="node">
@@ -130,7 +130,7 @@
     </div>
     <div class="node-s">request-approval.mjs</div>
     <div class="node-d">Opens a GitHub issue with the draft and assigns it to me, which is what triggers the notification.</div>
-    <div class="node-state">nothing waiting</div>
+    <div class="node-state"><strong>1</strong> waiting on me</div>
   </div>
     
   <div class="node gated">
@@ -175,7 +175,8 @@
   <div class="h2n">Right now</div>
   <h2>Waiting on me</h2>
   <div class="panel">
-    <div class="empty">Nothing queued. Next draft in 1h.</div>
+    <div class="row"><div class="row-t">Access control is the finding that shows up in most SOC 2 reports</div>
+        <div class="row-m">linkedin &middot; issue #18 &middot; 2 source(s)</div></div>
   </div>
 
   <h2 style="margin-top:34px">Recently published</h2>
@@ -189,7 +190,7 @@
   </div>
 
   <div class="foot">
-    Regenerated 2026-08-05 11:32 UTC by the same job that runs the pipeline.
+    Regenerated 2026-08-05 13:23 UTC by the same job that runs the pipeline.
   </div>
 
 </div>

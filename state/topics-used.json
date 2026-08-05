@@ -1,5 +1,6 @@
 {
   "used": [
-    "001-continuous-compliance.json"
+    "001-continuous-compliance.json",
+    "002-soc2-access-findings.json"
   ]
 }
