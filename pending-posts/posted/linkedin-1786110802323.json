@@ -2,7 +2,7 @@
   "platform": "linkedin",
   "topic": "The ISO 27001:2022 transition deadline has passed",
   "text": "The ISO 27001:2022 transition deadline passed on 31 October 2025. If you are still holding an un-transitioned 2013 certificate, it is no longer valid.\n\nThis is no longer a planning topic. It is the current baseline, and the restructure is worth understanding on its own terms. Annex A shifted from 114 controls across 14 domains down to 93 controls grouped into four themes: organisational, people, physical, and technological.\n\nThe mechanics of the update are substantial. Eleven controls are entirely new, 57 were merged into 24, and every single remaining control received updated language.\n\nIf you are dealing with the practical side of this alignment, watch out for a common trap. Teams regularly buy the ISO 27001 standard without ISO 27002, then immediately struggle. Annex A descriptions are high level. They leave a lot open to interpretation. Without the guidance in 27002, you end up wasting hours guessing how a control applies to your actual service desk tickets, access reviews, and physical security checks. \n\nGet the practical guidance before you write your policies.\n\n#ISO27001 #GRC #compliance",
-  "approved": false,
+  "approved": true,
   "styleFlags": [],
   "grounded": true,
   "briefFile": "topics/003-iso27001-transition.json",
@@ -17,5 +17,6 @@
       "url": "https://gaicc.org/blog/iso-27001-annex-a-controls-list/"
     }
   ],
-  "issueNumber": 19
+  "issueNumber": 19,
+  "postedAt": "2026-08-07T14:56:38.175Z"
 }
