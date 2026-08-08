@@ -9,9 +9,18 @@ Auto-post, schedule, cross-post drafts, reply to mentions, and post GitHub
 [Composio](https://composio.dev), which handles OAuth to each platform so
 you don't need to register a developer app on X/LinkedIn/etc. yourself.
 
-Runs on a GitHub Actions cron (`.github/workflows/social-cron.yml`, every 15
-min) rather than a server you have to keep alive — nothing here needs to run
-on your own machine once it's set up.
+Runs on a GitHub Actions cron (`.github/workflows/social-cron.yml`) rather
+than a server you have to keep alive — nothing here needs to run on your own
+machine once it's set up.
+
+The cron asks for every 15 minutes, but **that is a request, not a
+guarantee**. GitHub throttles scheduled workflows, heavily on free-tier
+repos, and the measured median gap between real runs here is closer to an
+hour and a quarter (shortest seen: 38 minutes, longest: 6 hours). Every
+script is written to be safe at any interval, so the only thing this affects
+is latency: how long an `approve` reply sits before it publishes. Budget
+around an hour, not 15 minutes. The status page reports the measured figure
+rather than the configured one, so you can always check the real number.
 
 ## 1. One-time setup (run these locally, they're interactive)
 
@@ -55,10 +64,18 @@ Repo → Settings → Secrets and variables → Actions, add:
   to draft original posts (see "AI-written content" below). Free, from
   https://aistudio.google.com/apikey.
 
-That's it — the cron workflow runs `lab-watcher.mjs`, `schedule-run.mjs`,
-`mentions.mjs`, `send-replies.mjs`, `research-content.mjs`, and
-`send-content.mjs` every 15 minutes and commits state back to the repo so it
-stays consistent across runs.
+That's it — on every tick the cron workflow runs `lab-watcher.mjs`,
+`schedule-run.mjs`, `mentions.mjs`, `send-replies.mjs`,
+`research-content.mjs`, `homelab-watcher.mjs`, `check-approvals.mjs`,
+`send-content.mjs`, `request-approval.mjs`, and `build-dashboard.mjs`, then
+commits state back to the repo so it stays consistent across runs.
+
+Steps run as separate workflow steps on purpose: one failing (a bad token, a
+rate limit, an API hiccup) doesn't take the others down with it. Individual
+runs do fail occasionally — GitHub sometimes can't allocate a runner at all,
+which shows up as "The job was not acquired by Runner of type hosted". No
+state is written in that case, so the next tick just picks up where the
+failed one would have.
 
 ## 3. Everyday use
 
