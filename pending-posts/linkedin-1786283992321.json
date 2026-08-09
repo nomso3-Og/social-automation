@@ -1,0 +1,21 @@
+{
+  "platform": "linkedin",
+  "topic": "AI triage on the service desk is now assumed, not a differentiator",
+  "text": "AI triage on the service desk is no longer a feature to shop for. It is treated as a core part of the product, and the real win is predictability rather than raw speed.\n\nAcross a five month window, reported time to resolution for tickets using AI automation ran between 2.4 and 6.3 hours. That band held even as ticket volume grew. That kind of consistency matters when you are managing queue expectations.\n\nWhen evaluating systems, push vendors on the details. The critical distinction to ask about is whether their AI features are merely surface level or actually resolve routine requests end to end.\n\nKnowledge management has shifted because of this. It is no longer just a supporting practice. It has moved to become a primary lever for cutting ticket volume and improving first contact resolution.\n\n#ITsupport #serviceDesk #GRC",
+  "approved": false,
+  "styleFlags": [],
+  "grounded": true,
+  "briefFile": "topics/004-service-desk-ai-triage.json",
+  "searchQueries": [],
+  "sources": [
+    {
+      "title": "2026 IT Help Desk Benchmark Report",
+      "url": "https://www.fixify.com/it-help-desk-benchmark-report-2026"
+    },
+    {
+      "title": "Best Practices for ITIL Help Desk Success 2026",
+      "url": "https://www.serviceaide.com/resources/blog/itil-help-desk"
+    }
+  ],
+  "issueNumber": 21
+}
