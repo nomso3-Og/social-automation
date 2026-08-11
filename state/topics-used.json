@@ -3,6 +3,7 @@
     "001-continuous-compliance.json",
     "002-soc2-access-findings.json",
     "003-iso27001-transition.json",
-    "004-service-desk-ai-triage.json"
+    "004-service-desk-ai-triage.json",
+    "005-eu-ai-act-deadlines.json"
   ]
 }

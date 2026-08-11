@@ -1,0 +1,21 @@
+{
+  "platform": "linkedin",
+  "topic": "EU AI Act deadlines moved, and the dates are worth getting right",
+  "text": "People are already repeating incorrect timelines for the EU AI Act. The European Parliament voted to shift key compliance deadlines, but this delay is not fully settled. The Council of the EU still needs to agree for the changes to take legal effect before the original 2 August 2026 date.\n\nIf agreed, high risk AI system requirements move to December 2027. Sector specific obligations push out to August 2028.\n\nDo not assume every rule moved. Article 50 transparency obligations still apply from 2 August 2026, which covers chatbot transparency.\n\nOther dates shifted slightly. Transparency requirements for AI generating synthetic audio, image, video, or text moved to 2 December 2026. Two new prohibited practices apply from that same date: nudifier applications and AI generated child sexual abuse material.\n\nKeep in mind that the Act is not retroactive. Systems already on the market before it takes effect may be exempt from some obligations. Verify the Council vote before you change your internal project schedules.\n\n#GRC #compliance #audit",
+  "approved": false,
+  "styleFlags": [],
+  "grounded": true,
+  "briefFile": "topics/005-eu-ai-act-deadlines.json",
+  "searchQueries": [],
+  "sources": [
+    {
+      "title": "US Companies Face EU AI Act's Possible August 2026 Compliance Deadline",
+      "url": "https://www.hklaw.com/en/insights/publications/2026/04/us-companies-face-eu-ai-acts-possible-august-2026-compliance-deadline"
+    },
+    {
+      "title": "EU AI Act Update: Timeline Relief, Targeted Simplification, and New Prohibitions",
+      "url": "https://www.insideprivacy.com/artificial-intelligence/eu-ai-act-update-timeline-relief-targeted-simplification-and-new-prohibitions/"
+    }
+  ],
+  "issueNumber": 22
+}
