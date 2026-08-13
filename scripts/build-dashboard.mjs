@@ -123,6 +123,14 @@ const dueLabel = !nextDue
     ? 'due now'
     : `in ${Math.max(1, Math.round((nextDue - Date.now()) / 3600e3))}h`;
 
+// How long the queue lasts at the current cadence. The raw count doesn't say
+// much on its own: four briefs is a week and a bit at 48h, and over a month at
+// 240h. check-brief-stock.mjs opens an issue on the same number.
+const runwayDays = (briefsLeft.length * cadenceH) / 24;
+const briefRunway = briefsLeft.length
+  ? ` &middot; ~${runwayDays < 10 ? runwayDays.toFixed(1) : Math.round(runwayDays)}d left`
+  : '';
+
 const connected = Object.entries(actions)
   .filter(([k]) => !k.startsWith('_'))
   .map(([k, v]) => ({ name: k, live: v.post && v.post !== 'REPLACE_ME' }));
@@ -216,7 +224,7 @@ const html = `<!doctype html>
   That figure is measured, not configured.</p>
 
   <div class="stats">
-    <div class="stat"><div class="stat-n">${briefsLeft.length}</div><div class="stat-l">research briefs queued</div></div>
+    <div class="stat"><div class="stat-n">${briefsLeft.length}</div><div class="stat-l">research briefs queued${briefRunway}</div></div>
     <div class="stat"><div class="stat-n">${pending.length}</div><div class="stat-l">awaiting my approval</div></div>
     <div class="stat"><div class="stat-n">${posted.length}</div><div class="stat-l">published</div></div>
     <div class="stat"><div class="stat-n">${esc(dueLabel)}</div><div class="stat-l">next draft</div></div>

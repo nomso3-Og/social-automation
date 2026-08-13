@@ -67,8 +67,9 @@ Repo → Settings → Secrets and variables → Actions, add:
 That's it — on every tick the cron workflow runs `lab-watcher.mjs`,
 `schedule-run.mjs`, `mentions.mjs`, `send-replies.mjs`,
 `research-content.mjs`, `homelab-watcher.mjs`, `check-approvals.mjs`,
-`send-content.mjs`, `request-approval.mjs`, and `build-dashboard.mjs`, then
-commits state back to the repo so it stays consistent across runs.
+`send-content.mjs`, `request-approval.mjs`, `check-brief-stock.mjs`, and
+`build-dashboard.mjs`, then commits state back to the repo so it stays
+consistent across runs.
 
 Steps run as separate workflow steps on purpose: one failing (a bad token, a
 rate limit, an API hiccup) doesn't take the others down with it. Individual
@@ -161,6 +162,44 @@ When every brief has been used, the writer falls back to live search, and then
 to the generic rotating list in `config/content-topics.json`, which is
 evergreen and uncited. So it's worth keeping `topics/` stocked.
 
+You don't have to watch the folder yourself. `check-brief-stock.mjs` counts
+the unused briefs every run, and when the count drops to `lowStockThreshold`
+(default 3) it opens an issue assigned to you, so it arrives as an email and
+a phone notification like every other prompt here. It reports how many days
+of runway are left at the current cadence, not just a count, because four
+briefs is a week at 48h and over a month at 240h. One issue at a time, and it
+closes itself once you top the folder back up.
+
+Check the wording without sending anything:
+
+```bash
+npm run check-brief-stock -- --dry-run --threshold=5
+```
+
+**Summary cards:** a post written from a brief gets a generated image, built
+from the brief's own key points. `lib/summary-card.mjs` lays out an SVG and
+rasterises it, so it costs nothing, needs no model call, and renders the same
+way every time.
+
+It's a typographic card, not a picture, and that's deliberate. An AI-generated
+image on a compliance post is the visual equivalent of an em dash: it reads as
+filler, it says nothing the text doesn't, and the tells are exactly what the
+style rules exist to avoid. A card that names the framework and states two or
+three checkable points is something a reader can use straight from the feed.
+
+Points that don't fit whole are dropped rather than cut mid-clause, and the
+card shrinks from three points to two before it will overflow. Preview them:
+
+```bash
+npm run preview-card                 # every brief, into card-previews/
+npm run preview-card -- topics/007-nist-csf-govern.json
+```
+
+Turn it off with `"attachCard": false` in `config/content-topics.json`, or per
+post by setting `imagePath` to `null` in the draft before approving. Only
+briefs get cards: without key points there's nothing checkable to put on one,
+and a card that restates the headline is decoration.
+
 **Researched content → LinkedIn posts:** if `GEMINI_API_KEY` is set,
 `research-content.mjs` picks the next topic from `config/content-topics.json`
 (rotating, at most once per `cadenceHours`), **searches the web** for what's
@@ -239,6 +278,15 @@ sentence length. Every draft carries a `styleFlags` array listing anything
 that slipped through, so you can see it before approving. It's advisory, not
 enforced. Edit the list in `lib/style.mjs` to taste.
 
+Posts also have to end with a question, on its own line before the hashtags.
+The rule is specific about what kind: it has to be answerable from the
+reader's own working experience and about the thing the post actually
+discussed. "How long does a user access review take your team?" invites an
+answer. "What are your thoughts?" does not, because nobody has a thought to
+offer, they have a Tuesday afternoon they lost to it. The stock prompts
+(`Thoughts?`, `Agree?`, `Let me know in the comments`) are flagged as
+`generic engagement bait`, and a post with no question at all is flagged too.
+
 **Why LinkedIn only:** this pipeline can't do X/Twitter-style "find and
 comment on other people's posts" — LinkedIn's API (even for a fully connected
 member OAuth) has no topic/feed search action, only posting, commenting on a
@@ -246,6 +294,42 @@ member OAuth) has no topic/feed search action, only posting, commenting on a
 needs a platform whose API supports search, which for this repo's connected
 accounts currently means Twitter/X once it's connected with your own
 Developer App credentials — see the twitter section above.
+
+## What this depends on, and what happens if a subscription lapses
+
+Worth being clear about, because it isn't obvious from the outside: **nothing
+in this pipeline runs on an AI subscription.** No Claude plan, no ChatGPT
+plan, no cloud console. If every one of those lapsed tomorrow, the posting
+would carry on unchanged. Three services keep it alive, and all three are on
+free tiers this repo stays well inside:
+
+| What | Used for | Cost here |
+| --- | --- | --- |
+| GitHub Actions | running the cron, every step | Free, and **unlimited** because this repo is public. Minute limits only apply to private repos. |
+| GitHub Pages | serving the status page | Free for public repos. |
+| Composio | the LinkedIn connection and the posting call | Free tier is 20K tool calls/month. This uses a handful per run. |
+| Google Gemini | writing the post text | Free tier. One post per 48h is far inside the daily quota. |
+
+The card images cost nothing at all: they're drawn locally by
+`lib/summary-card.mjs`, no API involved.
+
+What a lapsed AI subscription actually costs you is **the ability to change
+this repo by asking**. The pipeline keeps running; adding a feature to it goes
+back to editing the files yourself. Two things worth knowing for that case:
+
+- **Restocking `topics/` is hand-editable.** A brief is a small JSON file with
+  a title, an angle, and a few key points. Writing one from an article you've
+  read takes a few minutes and needs no tooling. That's the only recurring
+  input the pipeline actually needs from you.
+- **Nothing here is locked to a vendor you can't replace.** If the Gemini free
+  tier changes, `research-content.mjs` is the only file that calls it. If
+  Composio changes, `lib/composio.mjs` and `scripts/post.mjs` are the only
+  files that touch it.
+
+The one genuine single point of failure is the **LinkedIn OAuth connection**
+held by Composio. If that's revoked or expires, posting stops until you
+reconnect with `npm run connect -- linkedin`. Everything else keeps drafting
+and queuing in the meantime, so nothing is lost, it just waits.
 
 ## Notes / things that need your judgment, not a default
 

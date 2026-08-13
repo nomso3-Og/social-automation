@@ -16,12 +16,15 @@
     "homelab-watcher": "node scripts/homelab-watcher.mjs",
     "request-approval": "node scripts/request-approval.mjs",
     "check-approvals": "node scripts/check-approvals.mjs",
+    "check-brief-stock": "node scripts/check-brief-stock.mjs",
     "send-content": "node scripts/send-content.mjs",
-    "build-dashboard": "node scripts/build-dashboard.mjs"
+    "build-dashboard": "node scripts/build-dashboard.mjs",
+    "preview-card": "node scripts/preview-card.mjs"
   },
   "dependencies": {
     "@composio/core": "^0.14.1",
     "@google/genai": "^2.15.0",
+    "@resvg/resvg-js": "^2.6.2",
     "dotenv": "^16.4.5"
   }
 }
