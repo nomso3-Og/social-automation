@@ -1,0 +1,21 @@
+{
+  "platform": "linkedin",
+  "topic": "Offboarding cannot close accounts nobody knows exist",
+  "text": "Your offboarding checklist breaks the second an employee signs up for a tool without telling IT.\n\nA mid-sized company typically runs between 80 and 150 SaaS applications. IT usually knows about roughly half. When someone leaves, IT can only deprovision what it knows about. Accounts in unknown apps stay live indefinitely. That produces orphaned accounts at scale, and no offboarding process can close them because nobody knows the applications are there.\n\nThe gaps break down into three kinds: visibility, control, and response.\n\nYou cannot review access to a system you do not know exists. Scanning corporate email for SaaS signup and billing messages is one of the more complete discovery methods available. Pair that discovery with a SaaS audit, SSO, a light approval path for new tools, and a quarterly access review.\n\nThat covers most of the exposure without blocking your team.\n\n#GRC #ITsupport #Audit",
+  "approved": false,
+  "styleFlags": [],
+  "grounded": true,
+  "briefFile": "topics/006-saas-sprawl-offboarding.json",
+  "searchQueries": [],
+  "sources": [
+    {
+      "title": "SaaS Sprawl Has Become the New Shadow IT",
+      "url": "https://securityboulevard.com/2026/03/saas-sprawl-has-become-the-new-shadow-it-why-traditional-security-struggles-to-see-and-stop-it/"
+    },
+    {
+      "title": "Shadow IT Discovery: A Complete 2026 Guide",
+      "url": "https://www.nudgesecurity.com/post/shadow-it-discovery"
+    }
+  ],
+  "issueNumber": 23
+}
