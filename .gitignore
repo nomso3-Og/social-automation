@@ -1,3 +1,7 @@
 node_modules/
 .env
 *.log
+
+# Local output of `npm run preview-card`. Cards actually going out with a post
+# live under pending-posts/media and are committed.
+card-previews/

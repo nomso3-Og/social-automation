@@ -1,6 +1,9 @@
 {
   "_comment": "Topics the AI writes original, reference/cheat-sheet-style LinkedIn posts about. Rotates through in order; cadenceHours controls how often a new draft is generated, checked on every cron tick.",
   "cadenceHours": 48,
+  "lowStockThreshold": 3,
+  "attachCard": true,
+  "cardFooter": "GRC and IT support notes",
   "topics": [
     "GRC frameworks and how they relate to each other (ISO 27001, NIST CSF, SOC 2)",
     "IT risk management basics for people new to the field",
@@ -11,5 +14,8 @@
     "common gaps in AML/BSA compliance programs",
     "how to read a compliance audit finding"
   ],
-  "_cadence": "48h is roughly 3-4 posts a week. Lower it for more, raise it for fewer."
+  "_cadence": "48h is roughly 3-4 posts a week. Lower it for more, raise it for fewer.",
+  "_lowStockThreshold": "When unused briefs in topics/ fall to this number or below, check-brief-stock.mjs opens an issue (which emails you) asking for a restock. It closes itself once the folder is topped back up.",
+  "_attachCard": "Generate a summary-card image from the brief's key points and attach it to the post. Set false for text-only. Only briefs get cards: without key points there is nothing checkable to put on one.",
+  "_cardFooter": "The small grey line along the bottom of the card."
 }

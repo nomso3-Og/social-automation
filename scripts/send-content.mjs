@@ -3,7 +3,8 @@
 // a non-empty text), then removes the file. Nothing sends until you review
 // research-content.mjs's draft, edit it if needed, and set "approved": true.
 import 'dotenv/config';
-import { readdir, readFile } from 'node:fs/promises';
+import { readdir, readFile, rename, mkdir } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { getComposio } from '../lib/composio.mjs';
@@ -39,11 +40,24 @@ for (const file of files) {
     continue;
   }
 
-  console.log(`Publishing ${file} to ${post.platform}...`);
+  // Only attach a card that's actually on disk. A draft can outlive its image
+  // (hand-edited, restored from an older commit), and posting is better than
+  // erroring out on a missing decoration.
+  let imagePath = null;
+  if (post.imagePath) {
+    const abs = path.join(ROOT, post.imagePath);
+    if (existsSync(abs)) {
+      imagePath = abs;
+    } else {
+      console.warn(`  card ${post.imagePath} is missing, posting text only`);
+    }
+  }
+
+  console.log(`Publishing ${file} to ${post.platform}${imagePath ? ' with card' : ''}...`);
 
   let result;
   try {
-    result = await publishOne(post.platform, post.text, null, composio);
+    result = await publishOne(post.platform, post.text, imagePath, composio);
   } catch (err) {
     // An unconfigured platform (slug still REPLACE_ME) or a transient API
     // failure must not crash the step and take the rest of the cron run with
@@ -54,6 +68,21 @@ for (const file of files) {
 
   console.log(`  -> ${result.successful === false ? 'FAILED' : 'ok'}`);
 
-  await archivePosted(PENDING_DIR, file, filePath);
+  // Move the card into the archive alongside its post. Left in place it would
+  // sit in pending-posts/media forever, and the archived draft would point at
+  // a path that later gets cleaned up.
+  if (imagePath) {
+    try {
+      const mediaArchive = path.join(PENDING_DIR, 'posted', 'media');
+      await mkdir(mediaArchive, { recursive: true });
+      const base = path.basename(imagePath);
+      await rename(imagePath, path.join(mediaArchive, base));
+      post.imagePath = `pending-posts/posted/media/${base}`;
+    } catch (err) {
+      console.warn(`  couldn't archive the card: ${err.message?.slice(0, 120) ?? err}`);
+    }
+  }
+
+  await archivePosted(PENDING_DIR, file, filePath, post);
   console.log(`  archived to pending-posts/posted/${file}`);
 }

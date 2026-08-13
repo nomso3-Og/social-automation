@@ -45,6 +45,25 @@ for (const file of files) {
   if (draft.approved) continue; // already approved by hand, no need to ask
 
   const origin = draft.source ? `\`${draft.source}\`` : `topic: ${draft.topic ?? 'n/a'}`;
+
+  // The card is worth seeing before approving: in the feed it's the part most
+  // people actually read. Referenced against the default branch, not
+  // GITHUB_SHA, because the card is committed by the state step at the *end*
+  // of this run. A commit-pinned URL would point at a tree that predates the
+  // image and 404 forever.
+  const slug = process.env.GITHUB_REPOSITORY ?? '';
+  const card = draft.imagePath
+    ? [
+        '',
+        '**Card attached to this post:**',
+        '',
+        `![summary card](https://raw.githubusercontent.com/${slug}/main/${draft.imagePath})`,
+        '',
+        `<sub>If the image is blank above, it is still being committed. ` +
+          `[View it here](https://github.com/${slug}/blob/main/${draft.imagePath}). ` +
+          'Not want it? Set `imagePath` to `null` in the draft, then reply `approve`.</sub>',
+      ].join('\n')
+    : '';
   const flags = draft.styleFlags?.length
     ? `\n\n**Style flags:** ${draft.styleFlags.join('; ')}`
     : '';
@@ -82,7 +101,7 @@ for (const file of files) {
     draft.text,
     '',
     '---',
-    `${flags}${sourceBlock}`,
+    `${card}${flags}${sourceBlock}`,
     '',
     '<sub>Want to change the wording first? Edit `text` in the draft file below,',
     'then reply `approve`. Replying from the GitHub app or the web works too.</sub>',

@@ -21,19 +21,18 @@ export async function loadDraft(dir) {
 // `npm run list-actions -- <platform> post` output, not guessed.
 async function buildArgs(platform, caption, imagePath, composio) {
   if (platform === 'linkedin') {
-    if (imagePath) {
-      throw new Error(
-        'linkedin image posts need the INITIALIZE_IMAGE_UPLOAD/REGISTER_IMAGE_UPLOAD ' +
-          'presigned-upload flow (see list-actions output) — not implemented yet, so ' +
-          'refusing rather than silently posting without the image.'
-      );
-    }
     const me = await composio.tools.execute('LINKEDIN_GET_MY_INFO', {
       userId: USER_ID,
       arguments: {},
       dangerouslySkipVersionCheck: true,
     });
-    return { author: `urn:li:person:${me.data.id}`, commentary: caption };
+    const args = { author: `urn:li:person:${me.data.id}`, commentary: caption };
+    // `images` is declared file_uploadable, so a local path is staged to S3 by
+    // the SDK and swapped for the reference LinkedIn expects. That only
+    // happens because getComposio() opts into auto-upload; passing a path
+    // without it posts the string and drops the image.
+    if (imagePath) args.images = [path.resolve(imagePath)];
+    return args;
   }
   const args = { text: caption };
   if (imagePath) args.media_path = imagePath; // adjust to the real param name from list-actions

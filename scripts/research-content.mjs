@@ -10,9 +10,11 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readState, writeState } from '../lib/state.mjs';
 import { STYLE_RULES, findStyleViolations } from '../lib/style.mjs';
+import { renderCardPng } from '../lib/summary-card.mjs';
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PENDING_DIR = path.join(ROOT, 'pending-posts');
+const MEDIA_DIR = path.join(PENDING_DIR, 'media');
 const TOPICS_DIR = path.join(ROOT, 'topics');
 
 const config = JSON.parse(
@@ -46,6 +48,34 @@ async function nextBrief() {
 
   const brief = JSON.parse(await readFile(path.join(TOPICS_DIR, next), 'utf8'));
   return { file: next, brief };
+}
+
+// The small label above the headline on the card. A brief can set `eyebrow`
+// explicitly; otherwise name the framework the title is actually about, since
+// that's the word a reader scanning the feed recognises. Falls back to a
+// neutral label rather than guessing wrong.
+const FRAMEWORKS = [
+  [/iso[\s/-]*27001/i, 'ISO 27001'],
+  [/soc\s*2/i, 'SOC 2'],
+  [/nist\s*csf|cybersecurity framework/i, 'NIST CSF'],
+  [/\bnist\b/i, 'NIST'],
+  [/\bdora\b/i, 'DORA'],
+  [/eu ai act|\bai act\b/i, 'EU AI Act'],
+  [/\bgdpr\b/i, 'GDPR'],
+  [/\bpci[\s-]*dss\b/i, 'PCI DSS'],
+  [/\bhipaa\b/i, 'HIPAA'],
+  [/aml|bsa/i, 'AML / BSA'],
+  [/\bitil\b|service desk|help ?desk/i, 'IT service desk'],
+  [/vendor|third[\s-]*party|supplier/i, 'Third party risk'],
+  [/audit/i, 'Audit'],
+  [/access review|offboarding|joiner|leaver/i, 'Access management'],
+];
+
+function deriveEyebrow(title) {
+  for (const [pattern, label] of FRAMEWORKS) {
+    if (pattern.test(title)) return label;
+  }
+  return 'GRC notes';
 }
 
 const picked = await nextBrief();
@@ -224,6 +254,30 @@ if (styleFlags.length > 0) {
   console.warn(`  style flags: ${styleFlags.join('; ')}`);
 }
 
+// A summary card, drawn from the brief's own key points rather than generated
+// by a model. Only briefs get one: without key points there's nothing
+// checkable to put on it, and a card restating the headline is decoration.
+let imagePath = null;
+if (picked && config.attachCard !== false && (picked.brief.keyPoints ?? []).length > 0) {
+  try {
+    await mkdir(MEDIA_DIR, { recursive: true });
+    const png = renderCardPng({
+      eyebrow: picked.brief.eyebrow ?? deriveEyebrow(picked.brief.title),
+      title: picked.brief.title,
+      points: picked.brief.keyPoints,
+      footer: config.cardFooter ?? 'GRC and IT support notes',
+    });
+    const cardName = `linkedin-${now}.png`;
+    await writeFile(path.join(MEDIA_DIR, cardName), png);
+    imagePath = `pending-posts/media/${cardName}`;
+    console.log(`  card: ${imagePath} (${Math.round(png.length / 1024)} KB)`);
+  } catch (err) {
+    // The post is the deliverable; the card is a bonus. A font problem on the
+    // runner shouldn't cost a draft.
+    console.error(`  card generation failed, posting text only: ${err.message?.slice(0, 160) ?? err}`);
+  }
+}
+
 await mkdir(PENDING_DIR, { recursive: true });
 const fileName = `linkedin-${now}.json`;
 await writeFile(
@@ -234,6 +288,7 @@ await writeFile(
       topic,
       text: postText,
       approved: false,
+      imagePath,
       styleFlags,
       grounded: sources.length > 0,
       briefFile: picked ? `topics/${picked.file}` : null,

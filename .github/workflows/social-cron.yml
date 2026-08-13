@@ -75,6 +75,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node scripts/request-approval.mjs
 
+      # After a brief may have been consumed above, so the count is current.
+      - name: Warn when research briefs run low
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/check-brief-stock.mjs
+
       # Last, so the page reflects everything the run just did.
       - name: Rebuild the live status page
         run: node scripts/build-dashboard.mjs
