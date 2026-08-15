@@ -1,0 +1,22 @@
+{
+  "platform": "linkedin",
+  "topic": "NIST CSF tiers get misread in board reporting",
+  "text": "Presenting a NIST CSF Tier 3 rating to your board as proof of strong security is misleading.\n\nTiers do not measure technical security capability. They describe how deeply cyber risk management integrates into your organization's wider risk decisions. You can sit at Tier 4 on governance and Tier 1 on technical detection coverage at the exact same time.\n\nThe easiest trap is treating the framework like a checklist. Teams tick off subcategories without establishing the risk rationale behind them. When that happens, you end up with broad framework coverage on paper, but no documented risk appetite, no real board-level accountability, and third-party risk governance that stops at a line in a vendor questionnaire.\n\nThis is why the Govern function matters. If you do not define risk tolerance and risk strategy first, the rest of the framework has no direction.\n\nWhen you present NIST CSF tiers to your leadership, do you score individual functions separately or roll everything into a single tier rating?\n\n#GRC #NIST #compliance",
+  "approved": false,
+  "imagePath": "pending-posts/media/linkedin-1786807850666.png",
+  "styleFlags": [],
+  "grounded": true,
+  "briefFile": "topics/007-nist-csf-govern.json",
+  "searchQueries": [],
+  "sources": [
+    {
+      "title": "NIST CSF 2.0: Understanding and Implementing the Govern Function",
+      "url": "https://arcticwolf.com/resources/blog/nist-csf-2-0-understanding-and-implementing-the-govern-function/"
+    },
+    {
+      "title": "NIST CSF 2.0: What Changed",
+      "url": "https://www.saltycloud.com/blog/nist-csf-2-0-complete-guide-2026/"
+    }
+  ],
+  "issueNumber": 25
+}
