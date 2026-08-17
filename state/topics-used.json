@@ -6,6 +6,7 @@
     "004-service-desk-ai-triage.json",
     "005-eu-ai-act-deadlines.json",
     "006-saas-sprawl-offboarding.json",
-    "007-nist-csf-govern.json"
+    "007-nist-csf-govern.json",
+    "008-vendor-questionnaire-fatigue.json"
   ]
 }
