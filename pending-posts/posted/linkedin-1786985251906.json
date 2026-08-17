@@ -2,8 +2,8 @@
   "platform": "linkedin",
   "topic": "Questionnaire fatigue is making third party risk data worse, not better",
   "text": "Every security team is burying vendors under assessment forms, and the data coming back is getting worse.\n\nVendors routinely fill out dozens, sometimes hundreds, of questionnaires a year. Most duplicate the exact same questions in slightly different formats. The result is pure fatigue. People rush, leave answers incomplete, or make errors just to clear the queue. The sheer volume of assessment is actively destroying data quality.\n\nThe timing is terrible. Verizon's 2026 DBIR found third-party involvement in breaches rose 60 percent, now accounting for 48 percent of all breaches. 65 percent of large companies call supply chain vulnerabilities their biggest cyber resilience challenge, up from 54 percent the previous year. Yet the UK NCSC reports only 14 percent of firms feel on top of the risks from their immediate suppliers. \n\nPiling on more 200-row spreadsheets will not fix this. We need contextual assurance and data-driven signals instead of endlessly repeating the same survey.\n\nHow many security questionnaires does your team currently have waiting in the queue to be completed?\n\n#GRC #RiskManagement #InformationSecurity",
-  "approved": false,
-  "imagePath": "pending-posts/media/linkedin-1786985251906.png",
+  "approved": true,
+  "imagePath": "pending-posts/posted/media/linkedin-1786985251906.png",
   "styleFlags": [],
   "grounded": true,
   "briefFile": "topics/008-vendor-questionnaire-fatigue.json",
@@ -18,5 +18,6 @@
       "url": "https://panorays.com/blog/vendor-security-questionnaire-fatigue/"
     }
   ],
-  "issueNumber": 27
+  "issueNumber": 27,
+  "postedAt": "2026-08-17T19:31:49.891Z"
 }
