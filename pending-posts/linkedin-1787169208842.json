@@ -1,0 +1,22 @@
+{
+  "platform": "linkedin",
+  "topic": "The service desk is an identity control, and attackers know it",
+  "text": "Your service desk is an identity control, whether your access policy treats it like one or not.\n\nHelpdesks are frequent targets for social engineering because they sit right where urgency and access meet. In remote and hybrid setups, agents rarely know the person calling. Attackers exploit that gap every day. Deepfake voice calls and AI-assisted social engineering are current operational threats, not hypothetical scenarios.\n\nClosing this gap comes down to workflow changes, not buying a new platform.\n\nRequire strict identity verification before issuing a Temporary Access Pass. Make the user get on a live video call, show photo ID, or obtain direct manager attestation first. When an agent does generate a pass, configure it for one-time use with a short validity window. Back the team with a clear standing script that refuses out-of-band reset requests whenever the ticket origin cannot be verified.\n\nOn the technical side, implement FIDO2 or WebAuthn passkeys. Binding authentication directly to a hardware device or cryptographic key is what stops push bombing, SIM swapping, and credential phishing for good.\n\nWhat specific verification step does your service desk require before resetting MFA or issuing a temporary pass?\n\n#ITSupport #InformationSecurity #ServiceDesk",
+  "approved": false,
+  "imagePath": "pending-posts/media/linkedin-1787169208842.png",
+  "styleFlags": [],
+  "grounded": true,
+  "briefFile": "topics/009-helpdesk-social-engineering.json",
+  "searchQueries": [],
+  "sources": [
+    {
+      "title": "Anatomy of a Helpdesk Social Engineering Attack",
+      "url": "https://fieldeffect.com/blog/anatomy-helpdesk-social-engineering-attack"
+    },
+    {
+      "title": "Phishing-Resistant MFA: The 2026 Enterprise Playbook",
+      "url": "https://hideez.com/blogs/news/phishing-resistant-mfa"
+    }
+  ],
+  "issueNumber": 28
+}
