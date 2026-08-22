@@ -1,0 +1,22 @@
+{
+  "platform": "linkedin",
+  "topic": "DORA's Register of Information exposed who actually knows their vendors",
+  "text": "The DORA Register of Information turned out to be an accidental inventory audit, and it exposed a mess.\n\nIt sounded like a standard reporting exercise on paper. In reality, building the register has been the single most operationally difficult DORA requirement for in-scope financial entities. \n\nThe 2025 pilot submission round proved what many IT and compliance teams suspected. Organisations that thought their third-party risk was documented had no centralised view of ICT contracts. Critical agreements were scattered across procurement spreadsheets, shadow IT in individual business units, and overseas subsidiaries. \n\nNow we are in the first real supervisory enforcement cycle. Regulators in Germany, France, and the Netherlands have already named persistent register deficiencies and incident reporting failures as enforcement priorities. \n\nRoughly half of in-scope institutions expected to reach full compliance by the end of 2025, but many are now pushing into 2026. To cope, teams are trying to map one control library across DORA, NIS2, ISO 27001, and NIST CSF, while racing to fix incident response processes before the 24-hour and 72-hour reporting clocks catch them out. \n\nIf you do not have a single source of truth for your ICT vendors, you cannot defend your environment or satisfy an auditor. \n\nHow many undocumented ICT contracts did your team uncover when building your register?\n\n#GRC #DORA #InformationSecurity",
+  "approved": false,
+  "imagePath": "pending-posts/media/linkedin-1787356844897.png",
+  "styleFlags": [],
+  "grounded": true,
+  "briefFile": "topics/010-dora-register-of-information.json",
+  "searchQueries": [],
+  "sources": [
+    {
+      "title": "DORA Enforcement Arrives and NIS2 Hits Its October Deadline",
+      "url": "https://compliancehub.wiki/dora-nis2-2026-enforcement-eu-financial-cyber-resilience-compliance/"
+    },
+    {
+      "title": "NIS2, DORA and ISO 27001: 2026 Compliance Manual",
+      "url": "https://kymatio.com/blog/nis2-iso-27001-and-dora-compliance-manual-version-2026"
+    }
+  ],
+  "issueNumber": 29
+}

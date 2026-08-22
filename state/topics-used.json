@@ -8,6 +8,7 @@
     "006-saas-sprawl-offboarding.json",
     "007-nist-csf-govern.json",
     "008-vendor-questionnaire-fatigue.json",
-    "009-helpdesk-social-engineering.json"
+    "009-helpdesk-social-engineering.json",
+    "010-dora-register-of-information.json"
   ]
 }
