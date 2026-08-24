@@ -1,0 +1,13 @@
+{
+  "platform": "linkedin",
+  "topic": "NIST CSF updates and adoption",
+  "text": "Adopting or refreshing your NIST Cybersecurity Framework mapping usually fails in the asset register, not in policy.\n\nWhen teams map their environment to the core functions, they instinctively focus on Protect. They configure endpoint tools, enforce multi-factor authentication, and schedule routine backups. But Identify and Govern are where the real operational friction lives. If your IT service desk has untracked hardware or orphan service accounts sitting in Active Directory, your framework alignment is mostly theoretical.\n\nAuditors look for proof that governance directly drives technical operations. That means vendor risk management actually dictates who gets third-party VPN access. It means your incident response categories match the alert types your IT team handles during an outage. Framework adoption is not a static spreadsheet exercise for the compliance team. It is the connective tissue between executive risk tolerance and daily IT tickets.\n\nWhich NIST CSF function creates the biggest backlog between your GRC team and IT operations?\n\n#NIST #GRC #InformationSecurity",
+  "approved": false,
+  "imagePath": null,
+  "styleFlags": [],
+  "grounded": false,
+  "briefFile": null,
+  "searchQueries": [],
+  "sources": [],
+  "issueNumber": 30
+}
