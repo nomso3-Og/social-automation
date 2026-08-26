@@ -1,0 +1,13 @@
+{
+  "platform": "linkedin",
+  "topic": "SOC 2 audits and readiness checklist",
+  "text": "Most SOC 2 readiness checklists fail because they focus on drafting policies instead of fixing system configurations.\n\nAn auditor does not just read your access control policy. They ask for a list of every employee terminated during the audit window, pick five at random, and compare the HR ticket timestamp against the revocation log in your identity provider. If HR marked the exit for 5:00 PM on Friday and the Google Workspace account remained active until Monday morning, you have an exception.\n\nThe same thing happens in change management. You might have a clean peer review policy, but if an engineer pushed an emergency hotfix directly to production without a linked ticket and an approval record, the control fails. \n\nReal readiness is technical validation. You need to pull the actual evidence yourself weeks before the observation window starts. Run the user access review. Check your branch protection rules in GitHub. Verify that your MDM actually enforces disk encryption on every active laptop rather than assuming the policy pushed cleanly.\n\nWhich control in your environment consistently produces the messiest evidence pull?\n\n#SOC2 #GRC #Audit",
+  "approved": false,
+  "imagePath": null,
+  "styleFlags": [],
+  "grounded": false,
+  "briefFile": null,
+  "searchQueries": [],
+  "sources": [],
+  "issueNumber": 31
+}
