@@ -1,0 +1,13 @@
+{
+  "platform": "linkedin",
+  "topic": "cybersecurity governance in IT teams",
+  "text": "Most cybersecurity governance fails at the service desk, not in the boardroom.\n\nA policy can look flawless in your compliance repository. It states that every elevated privilege requires a ticket, every firewall change needs CAB approval, and shared credentials are strictly banned. Then a critical server drops at 2 AM, or an IT technician needs to unblock thirty onboarding requests before 9 AM. \n\nThat is where governance actually lives. If a formal change process takes four days to approve an urgent patch, engineers will find workarounds. They will share a service account password over chat. They will leave a port open temporarily and forget about it. \n\nGood IT governance does not mean adding approval gates until nobody can work. It means matching your controls to the actual tools sysadmins use every day. If you want ticket traceability, integrate privileged access management directly into your service desk software. If an emergency change happens, build a clean retrospective review process instead of pretending out-of-band fixes never occur. \n\nAuditors do not just check your written policies. They pull sample tickets and compare timestamps against system logs. When those do not match, the policy on paper is useless.\n\nHow many undocumented policy exceptions is your IT team currently working around?\n\n#GRC #InformationSecurity #ITSupport",
+  "approved": false,
+  "imagePath": null,
+  "styleFlags": [],
+  "grounded": false,
+  "briefFile": null,
+  "searchQueries": [],
+  "sources": [],
+  "issueNumber": 32
+}
