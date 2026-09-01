@@ -1,0 +1,13 @@
+{
+  "platform": "linkedin",
+  "topic": "common gaps in AML/BSA compliance programs",
+  "text": "Most AML and BSA compliance gaps do not start in the written policy. They start in the plumbing between your core transaction database and your monitoring engine.\n\nThe first failure point is silent data truncation. An ETL job drops half of an originator address field because the destination schema has a strict character limit. The sanctions screening tool never sees the full payload, so a watch-list match never fires. The dashboard shows zero alerts, and everyone assumes the control worked.\n\nThe second gap is undocumented threshold tuning. Compliance teams get buried in false positives, tweak rule parameters to reduce alert volume, and move on. When examiners ask why a structuring threshold changed from five thousand to eight thousand dollars, nobody has the test data or change tickets to justify the shift. \n\nThe third issue is static customer risk profiles. Due diligence happens once during onboarding, but the risk tier never recalculates when transaction velocity triples six months later. \n\nAuditors look for the gap between what your policy promises and what your database actually passes through.\n\nHow often does your team reconcile transaction counts from the core ledger directly against the ingestion logs of your monitoring tool?\n\n#GRC #compliance #audit",
+  "approved": false,
+  "imagePath": null,
+  "styleFlags": [],
+  "grounded": false,
+  "briefFile": null,
+  "searchQueries": [],
+  "sources": [],
+  "issueNumber": 33
+}
