@@ -1,0 +1,13 @@
+{
+  "platform": "linkedin",
+  "topic": "how to read a compliance audit finding",
+  "text": "When a compliance audit finding lands in your inbox, ignore the scary recommendation paragraph and read the mechanics instead.\n\nAuditors structure findings around four elements: criteria, condition, cause, and effect. Most IT teams look at the effect, assume the worst, and start arguing. Do not do that.\n\nStart with the condition. That is what the auditor actually observed in your environment. Look at the sample. If they found three stale accounts in Active Directory, verify the account names yourself before you reply. Auditors make sampling errors and pull service or test accounts more often than people realize.\n\nNext, check the criteria. This is where you have leverage. The criteria must be an explicit framework requirement or your own written policy. If your access control policy gives the help desk 72 hours to revoke credentials, an account still active at 48 hours is not a failure, regardless of how the auditor feels about real-time deprovisioning. If it is not in the framework or your approved standard, it is an observation, not an exception.\n\nFinally, isolate the cause. If HR never submitted the offboarding ticket, building a new PowerShell script to purge directory objects will not fix the finding. \n\nHow often does an audit finding at your company turn out to be a flawed sample rather than a broken control?\n\n#GRC #audit #compliance",
+  "approved": false,
+  "imagePath": null,
+  "styleFlags": [],
+  "grounded": false,
+  "briefFile": null,
+  "searchQueries": [],
+  "sources": [],
+  "issueNumber": 34
+}
