@@ -1,0 +1,13 @@
+{
+  "platform": "linkedin",
+  "topic": "IT risk management basics for people new to the field",
+  "text": "The biggest mistake people make when they start in IT risk is treating the risk register like a to-do list.\n\nIt isn't. An automated scanner will dump four hundred critical findings on your desk by nine in the morning. If you log every single CVE as an independent risk, your register becomes unreadable. IT engineering will ignore you, and leadership will tune out.\n\nRisk requires context. A missing patch on an isolated test machine running sanitized data is technically a flaw, but it rarely belongs on an enterprise risk register. An unmonitored service account with domain admin privileges running a legacy payroll script? That is a real risk. The blast radius touches payroll, regulatory reporting, and internal trust.\n\nTo make risk management work, tie every entry to three things: a specific asset, an operational consequence, and a human owner. What breaks if this goes down? Who loses their job or gets audited if this data leaks? And who signs their name to accept the risk if the team decides not to patch it this quarter? \n\nIf you cannot name the person who has the budget and authority to fix or accept the issue, you do not have a risk management program. You just have a backlog of tickets nobody wants to work.\n\nHow do you filter out scanner noise before handing findings over to system owners?\n\n#GRC #RiskManagement #InformationSecurity",
+  "approved": false,
+  "imagePath": null,
+  "styleFlags": [],
+  "grounded": false,
+  "briefFile": null,
+  "searchQueries": [],
+  "sources": [],
+  "issueNumber": 36
+}
