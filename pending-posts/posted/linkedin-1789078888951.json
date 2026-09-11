@@ -2,12 +2,13 @@
   "platform": "linkedin",
   "topic": "ISO 27001 implementation lessons",
   "text": "Most ISO 27001 implementations stumble in the gap between what the policy says and what IT actually does on a Tuesday.\n\nGRC downloads a pristine access control policy. It mandates that user access reviews happen monthly across all systems. Meanwhile, the IT team has two sysadmins, hundreds of cloud accounts, and a backlog of helpdesk tickets. The monthly review never happens. When the stage two auditor asks for evidence from May, the scramble begins.\n\nAlign your controls to your operational capacity before you baseline your Statement of Applicability. If IT can only realistically review domain administrator accounts quarterly and broad application access twice a year, write that cadence into the standard operating procedure. Auditors do not issue non-conformities because your review cycle is quarterly. They write them because your policy promised monthly reviews and your ticket history shows you skipped three of them.\n\nThe same rule applies to the asset inventory. If IT tracks hardware in an endpoint management tool, that system is your inventory. Exporting it into a static spreadsheet just means you now maintain two lists, and the manual one is outdated within forty-eight hours. \n\nBuild the ISMS around the tools IT already runs, not the documentation you wish existed.\n\nWhich control in your ISMS caused the biggest headache between GRC and IT operations?\n\n#ISO27001 #GRC #InformationSecurity",
-  "approved": false,
+  "approved": true,
   "imagePath": null,
   "styleFlags": [],
   "grounded": false,
   "briefFile": null,
   "searchQueries": [],
   "sources": [],
-  "issueNumber": 37
+  "issueNumber": 37,
+  "postedAt": "2026-09-11T00:24:06.814Z"
 }
