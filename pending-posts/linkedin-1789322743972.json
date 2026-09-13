@@ -1,0 +1,13 @@
+{
+  "platform": "linkedin",
+  "topic": "NIST CSF updates and adoption",
+  "text": "Adopting the NIST Cybersecurity Framework usually stalls in the handoff between leadership intent and daily IT operations.\n\nMost teams treat the framework as a technical checklist. They map their antivirus, firewall rules, and backup jobs to Protect and Detect, call it a day, and hand the spreadsheet to an auditor. \n\nThat misses the real friction. Setting up an endpoint tool is straightforward. Documenting who formally accepts the risk when that tool cannot run on an operational system is where work grinds to a halt. \n\nWhen auditors examine your framework alignment, they rarely debate your choice of monitoring tools. They look for the trail behind your operational exceptions. They check whether your risk register actually dictates your change management process, or if the service desk and the compliance team operate in separate worlds. If an administrator approves a permanent security bypass without leadership sign-off tied to an explicit risk category, the framework is just shelfware. \n\nAdoption succeeds only when a support ticket can trace directly back to a documented risk decision.\n\nHow does your team document and review IT exceptions when a system cannot meet your framework baseline?\n\n#GRC #NIST #compliance",
+  "approved": false,
+  "imagePath": null,
+  "styleFlags": [],
+  "grounded": false,
+  "briefFile": null,
+  "searchQueries": [],
+  "sources": [],
+  "issueNumber": 38
+}
