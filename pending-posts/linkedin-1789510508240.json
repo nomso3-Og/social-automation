@@ -1,0 +1,13 @@
+{
+  "platform": "linkedin",
+  "topic": "SOC 2 audits and readiness checklist",
+  "text": "Most SOC 2 readiness checklists fail at the ticket queue, not the policy document.\n\nWriting an access control policy is simple. Proving you followed it for twelve straight months is where IT teams bleed time. When the auditor asks for your offboarding population, they will not read your handbook. They will cross-reference HR termination dates against identity provider deprovisioning timestamps.\n\nIf a contractor left on a Friday afternoon and the help desk closed their Google Workspace and AWS accounts the following Tuesday, that is an exception. Two of those will derail your clean report.\n\nThe other trap is change management evidence. Pulling pull requests sounds easy until you realize three merges bypassed branch protection rules during an outage. An auditor will ask who approved the pull request and whether that person also wrote the code. If your ticketing system does not link directly to the commit hash, you will spend your weekend taking screenshots.\n\nForget buying another compliance tool until your ticketing workflows actually enforce your policies. Automate the joiner-mover-leaver pipeline first.\n\nHow many manual access revocations does your team still perform by hand each week?\n\n#SOC2 #GRC #Audit",
+  "approved": false,
+  "imagePath": null,
+  "styleFlags": [],
+  "grounded": false,
+  "briefFile": null,
+  "searchQueries": [],
+  "sources": [],
+  "issueNumber": 39
+}
