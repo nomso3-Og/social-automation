@@ -1,0 +1,13 @@
+{
+  "platform": "linkedin",
+  "topic": "cybersecurity governance in IT teams",
+  "text": "Cybersecurity governance falls apart the moment a written policy meets an IT team trying to keep production running.\n\nA policy might demand that all critical patches go live within fourteen days. But IT has a scheduled freeze, an untested legacy integration, and a vendor who has not certified the latest OS update. If governance just means handing down mandates from a spreadsheet, engineers will route around it. They have to.\n\nReal governance inside IT is not about writing policies. It is managing exceptions.\n\nWhen an auditor pulls evidence for ISO 27001 or SOC 2, they rarely fail you on the policy text itself. They pull three tickets where IT could not meet the standard and ask what happened next. Did the system owner document a compensating control? Did the risk owner sign off on the operational reality, or did the ticket sit untouched in a queue for six months?\n\nIf your exception workflow requires a twenty-page form, nobody files it. They just leave the non-compliant server unmonitored and hope nobody looks. Good governance gives the technical team an approved, low-friction path to say: this update breaks production, here is how we contain the risk instead, and here is who accepted the exposure.\n\nHow many active security policy exceptions is your IT team tracking right now?\n\n#GRC #InformationSecurity #ITgovernance",
+  "approved": false,
+  "imagePath": null,
+  "styleFlags": [],
+  "grounded": false,
+  "briefFile": null,
+  "searchQueries": [],
+  "sources": [],
+  "issueNumber": 40
+}
