@@ -1,0 +1,13 @@
+{
+  "platform": "linkedin",
+  "topic": "common gaps in AML/BSA compliance programs",
+  "text": "Most AML and BSA compliance programs do not fail because the policy was poorly written. They fail because the transaction monitoring engine never received the data it needed.\n\nIn IT and GRC, the biggest blind spot is the pipeline feeding your monitoring tool. Core systems change, database schemas get updated, and suddenly a new wire transfer type or payment channel is silently omitted from the daily batch extracts. The compliance team assumes the monitoring tool is scanning every single transaction. In reality, a chunk of traffic is bypassing the engine completely because nobody flagged an unmapped transaction code after a system release.\n\nAnother chronic gap is untracked rule tuning. Compliance analysts get buried by false positives, so someone tweaks a threshold or adds an exclusion list to quiet the queue. If there is no change ticket, no documented test case, and no sign-off proving that true risk was not filtered out, an examiner will treat that tweak as an unvalidated model.\n\nAuditors do not just look at your written thresholds. They ask to reconcile raw ledger settlement volumes against the total volume ingested by your monitoring software. If those two counts do not match, you do not just have an ETL bug. You have a regulatory problem.\n\nWhen was the last time your team ran a reconciliation between core ledger transaction counts and the records actually processed by your monitoring system?\n\n#GRC #compliance #audit",
+  "approved": false,
+  "imagePath": null,
+  "styleFlags": [],
+  "grounded": false,
+  "briefFile": null,
+  "searchQueries": [],
+  "sources": [],
+  "issueNumber": 41
+}
