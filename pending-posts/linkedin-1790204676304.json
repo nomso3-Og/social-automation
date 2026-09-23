@@ -1,0 +1,13 @@
+{
+  "platform": "linkedin",
+  "topic": "how to read a compliance audit finding",
+  "text": "Here is how to read an audit finding without spiraling into a fight with your assessor.\n\nWhen a finding lands, most teams jump straight to the recommendation and start building a fix they do not need. Stop doing that.\n\nStart with the condition. That is what the auditor actually saw. Did three contractor accounts remain active thirty days past their termination date? Pull the raw ticket IDs and directory logs before you speak. If the data is wrong, dispute the sample with logs. If the data is right, accept the condition.\n\nNext, look at the criteria. This is what you were measured against. Did you violate your own written policy, like \"revoke access within 24 hours,\" or an auditor's broad interpretation of a framework requirement? There is a massive difference. You can rewrite an overambitious internal policy that IT was never staffed to support. You cannot rewrite a strict legal requirement.\n\nFinally, ignore the auditor's recommendation for a moment. Assessors see the symptom. They rarely know about your fragile HR webhook, your contractor onboarding delays, or your ticket routing rules. Find the operational break yourself. Fix that, and write your management response around the real operational repair rather than whatever generic tool the assessor suggested.\n\nHow many findings on your last report came down to an internal policy that was simply written too strictly for IT to follow?\n\n#GRC #compliance #audit",
+  "approved": false,
+  "imagePath": null,
+  "styleFlags": [],
+  "grounded": false,
+  "briefFile": null,
+  "searchQueries": [],
+  "sources": [],
+  "issueNumber": 42
+}
