@@ -1,0 +1,13 @@
+{
+  "platform": "linkedin",
+  "topic": "IT risk management basics for people new to the field",
+  "text": "If you are new to IT risk management, ignore the colorful 5x5 heat maps for a minute.\n\nMost newcomers get stuck trying to mathematically defend why a risk is a medium instead of a high. That is a trap. Risk management is fundamentally about answering three plain questions before an outage or an audit forces the issue.\n\nFirst, what system or data actually keeps the lights on? You cannot protect everything equally. If a primary domain controller goes dark, business stops. If the digital signage in the lobby fails, someone files a low-priority ticket. Know the difference.\n\nSecond, how does it fail? This is where IT support experience pays off. The failure is rarely an advanced nation-state attack. It is usually an unpatched hypervisor, an expired SSL certificate on an internal portal, or a shared service account with domain admin privileges and a password set in 2018.\n\nThird, who owns the fallout? A risk without a named owner is just a complaint filed in a spreadsheet. Your job is not to fix every vulnerability yourself. Your job is to make sure the system owner understands the consequences of inaction, documents their decision, and formally signs off if they choose to accept it.\n\nWhich unmanaged asset on your network causes the most friction because nobody wants to own it?\n\n#GRC #RiskManagement #InformationSecurity",
+  "approved": false,
+  "imagePath": null,
+  "styleFlags": [],
+  "grounded": false,
+  "briefFile": null,
+  "searchQueries": [],
+  "sources": [],
+  "issueNumber": 44
+}
