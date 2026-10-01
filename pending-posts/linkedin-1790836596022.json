@@ -1,0 +1,13 @@
+{
+  "platform": "linkedin",
+  "topic": "ISO 27001 implementation lessons",
+  "text": "Most messy ISO 27001 audits trace back to simple operational drift, not missing firewalls.\n\nYou write a policy that says every production change requires peer review and a documented rollback plan. Then you sample twenty change tickets from the last quarter. Five of them were marked emergency hotfixes, pushed directly to production by an administrator, and closed without a second approver. The auditor does not care that the patch fixed the issue. They care that your documented control was bypassed five times.\n\nThe same disconnect happens with asset inventories. Building the initial spreadsheet for Clause 5.9 is easy. Keeping it accurate three months later, when the service desk swaps out broken laptops without updating serial numbers in your asset tracker, is where the process breaks.\n\nDesign your controls around the tools your IT team already lives in. If a sysadmin has to leave their ticket queue to manually log compliance evidence in a separate portal, they will eventually skip it. You will spend your internal audit cycle chasing down tickets instead of improving security.\n\nHow many ghost devices did you uncover the last time you reconciled your MDM against your active user list?\n\n#ISO27001 #GRC #ITsupport",
+  "approved": false,
+  "imagePath": null,
+  "styleFlags": [],
+  "grounded": false,
+  "briefFile": null,
+  "searchQueries": [],
+  "sources": [],
+  "issueNumber": 45
+}
