@@ -1,0 +1,13 @@
+{
+  "platform": "linkedin",
+  "topic": "NIST CSF updates and adoption",
+  "text": "Adopting or updating a NIST CSF profile usually stalls when teams treat it as an inventory of controls rather than how IT actually works.\n\nMapping subcategories to a spreadsheet is easy. The hard part is proving the connection between policy and daily system administration. You can mark PR.AC as implemented because you wrote an access control policy. An auditor will still pull ten terminated employees from HR and check their Active Directory status thirty minutes later. If the service desk missed a ticket, your implementation tier on paper means nothing.\n\nThe real friction sits in governance. Setting up a framework requires someone to actively manage the gap between automated IT routines and written rules. Someone has to review firewall exceptions every single month. Security telemetry needs to reach people who control budgets, not just sit in an unread compliance archive.\n\nUse the framework as a bridge. IT manages the operational reality. GRC translates that reality into business risk.\n\nWhich NIST CSF category consistently causes the biggest friction between your IT staff and your internal auditors?\n\n#NIST #GRC #InformationSecurity",
+  "approved": false,
+  "imagePath": null,
+  "styleFlags": [],
+  "grounded": false,
+  "briefFile": null,
+  "searchQueries": [],
+  "sources": [],
+  "issueNumber": 46
+}
