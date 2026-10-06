@@ -1,0 +1,13 @@
+{
+  "platform": "linkedin",
+  "topic": "SOC 2 audits and readiness checklist",
+  "text": "Most SOC 2 readiness checklists fail because they focus on writing policies instead of fixing operational habits.\n\nWriting an Information Security Policy takes an afternoon. Getting engineers to document emergency access tickets takes months.\n\nWhen an auditor samples your controls, they do not care about your nicely formatted PDFs. They look at timestamps.\n\nHere is what actually breaks during testing:\n\nUser offboarding. HR terminates the employee on Friday, but their AWS console access stays alive until someone notices next Tuesday. That is an instant exception.\n\nChange management trails. A hotfix goes straight to production during an outage. Nobody creates a retroactive pull request, and nobody links a ticket. The commit history tells the truth, and the auditor sees it.\n\nAccess reviews. You sent a spreadsheet out, three managers ignored it, and someone signed off on the review anyway without recorded approvals.\n\nAuditors ask for the ticket, the PR approval, and the deployment log for the exact same change. If the dates do not match, your policy is just paper.\n\nFix the systems first. Make the tools enforce the rule, then document what you actually do.\n\nWhich control sample caused your most painful audit finding?\n\n#SOC2 #compliance #audit",
+  "approved": false,
+  "imagePath": null,
+  "styleFlags": [],
+  "grounded": false,
+  "briefFile": null,
+  "searchQueries": [],
+  "sources": [],
+  "issueNumber": 47
+}
