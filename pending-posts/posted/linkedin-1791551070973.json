@@ -2,12 +2,13 @@
   "platform": "linkedin",
   "topic": "cybersecurity governance in IT teams",
   "text": "Cybersecurity governance fails the moment it lives in a policy binder instead of the service desk queue.\n\nMost IT teams do not ignore security rules out of malice. They bypass them because ticket SLAs are running out and the change approval board only meets on Thursdays.\n\nWhen GRC writes a standard requiring two director-level sign-offs for an elevated role, but a tier-2 technician has five onboarding requests due before noon, something gives. Usually, the tech copies permissions from an existing user or shares a local admin password just to clear the queue.\n\nReal governance maps controls directly into daily IT operations. That means building pre-approved standard change templates so system administrators do not skip the ticketing system to push a quick patch. It means automating access revocation through directory group syncs instead of hoping someone remembers a manual offboarding checklist.\n\nIf your governance structure demands that an engineer review a 40-page PDF to safely build an endpoint, you do not have governance. You have shelfware.\n\nWhich IT policy at your organization gets bypassed most often because the official process is too slow?\n\n#GRC #ITIL #informationsecurity",
-  "approved": false,
+  "approved": true,
   "imagePath": null,
   "styleFlags": [],
   "grounded": false,
   "briefFile": null,
   "searchQueries": [],
   "sources": [],
-  "issueNumber": 48
+  "issueNumber": 48,
+  "postedAt": "2026-10-09T18:50:09.575Z"
 }
