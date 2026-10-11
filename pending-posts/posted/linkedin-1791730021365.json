@@ -2,12 +2,13 @@
   "platform": "linkedin",
   "topic": "common gaps in AML/BSA compliance programs",
   "text": "Most AML and BSA program failures are not policy failures. They are pipeline failures.\n\nThe compliance team writes a clean policy for suspicious activity reporting. Then the core banking platform pushes an update, and the transaction monitoring feed silently drops wire transfers over a specific character limit. Nobody notices for two months.\n\nWhen examiners walk in, they do not just read threshold documentation. They pull raw database extracts and reconcile row counts against your alert queue. If three hundred wires missed the ingest batch because of an unhandled null value in a memo field, your model validation is dead in the water.\n\nAnother quiet gap is change management around rule tuning. An analyst tweaks a threshold to cut down on false positive alerts during payroll runs. Good intention, zero ticket history. If you cannot produce the ticket, the test run, and the formal approval showing why that filter changed, examiners treat that as an unmonitored blind spot. \n\nYour detection engine is only as good as the ETL job feeding it. Keep IT change control glued to your compliance rules.\n\nHow often does your IT team reconcile transaction counts between the core ledger and your monitoring tool?\n\n#compliance #audit #GRC",
-  "approved": false,
+  "approved": true,
   "imagePath": null,
   "styleFlags": [],
   "grounded": false,
   "briefFile": null,
   "searchQueries": [],
   "sources": [],
-  "issueNumber": 49
+  "issueNumber": 49,
+  "postedAt": "2026-10-11T19:24:50.500Z"
 }
