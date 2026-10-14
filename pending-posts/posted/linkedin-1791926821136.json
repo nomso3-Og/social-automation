@@ -2,12 +2,13 @@
   "platform": "linkedin",
   "topic": "how to read a compliance audit finding",
   "text": "When an audit finding lands in your inbox, do not start by reading the recommendation.\n\nAuditors usually build a finding around four core parts: criteria, condition, cause, and effect. Most IT teams look at the condition, panic, and then blindly implement whatever generic remediation the auditor suggested.\n\nThat burns engineering time.\n\nThe condition is just the snapshot of what failed in the sample. Maybe three offboarded contractors still had active Google Workspace accounts thirty days after leaving. The criteria is your written baseline, like revoking access within 24 hours of separation. The recommendation is often standard boilerplate written by someone who has never touched your identity provider.\n\nLook at the root cause instead.\n\nDid HR send the termination ticket late? Did the ticket sit unassigned in a Jira backlog? Or did your SCIM bridge silently fail on account deactivation because an API token expired?\n\nThose are three completely different operational problems. If you only disable the three accounts and rewrite the policy paragraph to satisfy the report, you treated the symptom. You will fail the exact same sample during the next testing cycle.\n\nFix the plumbing, not the draft.\n\nWhen you trace an offboarding finding back to its source, does it usually turn out to be an HR notification failure or an IT queue delay?\n\n#GRC #audit #compliance",
-  "approved": false,
+  "approved": true,
   "imagePath": null,
   "styleFlags": [],
   "grounded": false,
   "briefFile": null,
   "searchQueries": [],
   "sources": [],
-  "issueNumber": 50
+  "issueNumber": 50,
+  "postedAt": "2026-10-14T00:32:43.396Z"
 }
