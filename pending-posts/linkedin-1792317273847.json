@@ -1,0 +1,13 @@
+{
+  "platform": "linkedin",
+  "topic": "IT risk management basics for people new to the field",
+  "text": "IT risk management is not the same thing as managing an endless list of vulnerabilities.\n\nWhen people switch from helpdesk or sysadmin work into GRC, their instinct is often to log everything. A scanner flags 800 outdated packages, so they dump the export into a spreadsheet and call it a risk register.\n\nAuditors do not want that spreadsheet. System administrators hate it.\n\nA vulnerability is just a weakness. A risk requires context: what is the asset, what is the threat, what controls exist right now, and what happens to operations if it breaks? An unpatched print server sitting on an isolated management VLAN is not the same operational risk as an unpatched jump box exposed to the public internet. Treat them identically and engineers will stop reading your tickets.\n\nThe hardest part for beginners is assigning ownership. Every risk entry needs one person who owns the affected system and holds the budget or authority to fix it, mitigate it, or formally accept it. If you cannot name an owner who has the power to sign off on downtime or purchase a replacement, you do not have an IT risk. You have an IT complaint.\n\nStart small. Map the flaw to the business process it disrupts before you touch a scoring matrix.\n\nHow many entries on your current risk register have an owner who actually knows they own it?\n\n#GRC #RiskManagement #InformationSecurity",
+  "approved": false,
+  "imagePath": null,
+  "styleFlags": [],
+  "grounded": false,
+  "briefFile": null,
+  "searchQueries": [],
+  "sources": [],
+  "issueNumber": 52
+}
