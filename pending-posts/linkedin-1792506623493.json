@@ -1,0 +1,13 @@
+{
+  "platform": "linkedin",
+  "topic": "ISO 27001 implementation lessons",
+  "text": "Most ISO 27001 implementations stall because the policies describe an IT department that does not exist.\n\nGRC writes a policy saying every laptop gets encrypted, every privileged account is reviewed quarterly, and every system change links to a signed-off ticket. Then the auditor arrives. They do not want to read your policy again. They want five laptop serial numbers pulled live from your MDM, five closed service desk tickets, and the change log from production on a random Tuesday.\n\nIf your ticketing system cannot pull an approval audit trail with timestamps, the policy is just fiction. Teams spend weeks rewriting controls simply because their helpdesk tool has no clean way to log emergency change approvals after hours. The technicians were doing the work. They were just doing it in private chat channels, not in the ticket fields the auditor sampled.\n\nBuild your controls around how your sysadmins and service desk actually provision users and resolve issues. If an evidence-gathering step requires three manual screenshots every single time someone joins the company, IT will abandon it by month four.\n\nWhich control from your last audit caused the biggest headache between GRC expectations and actual IT operations?\n\n#ISO27001 #GRC #audit",
+  "approved": false,
+  "imagePath": null,
+  "styleFlags": [],
+  "grounded": false,
+  "briefFile": null,
+  "searchQueries": [],
+  "sources": [],
+  "issueNumber": 53
+}
