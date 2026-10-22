@@ -1,0 +1,13 @@
+{
+  "platform": "linkedin",
+  "topic": "NIST CSF updates and adoption",
+  "text": "NIST CSF adoption falls apart when teams treat it like an IT checklist instead of an operating model.\n\nIdentify, Protect, Detect, Respond, and Recover usually map cleanly to tools you already own. You point to your endpoint agents, firewall rules, backup schedules, and incident playbooks. That part is familiar. It feels like regular systems administration.\n\nThe friction starts with Govern.\n\nGovern forces an organization to decide who owns risk, not just who configures the controls. In practice, this is where the spreadsheet stalls. When an unpatchable legacy server cannot meet your baseline security controls, IT usually keeps it running because operations depend on it. That is an unapproved risk acceptance. If your CSF adoption does not give IT a clear path to push that decision back to the business owner, the framework is just shelfware.\n\nAuditors do not just look for mapped controls. They look for the paper trail where business leadership formally acknowledged the gaps IT could not fix on their own.\n\nWho in your organization actually signs off when an IT system cannot meet a baseline control?\n\n#GRC #NIST #InformationSecurity",
+  "approved": false,
+  "imagePath": null,
+  "styleFlags": [],
+  "grounded": false,
+  "briefFile": null,
+  "searchQueries": [],
+  "sources": [],
+  "issueNumber": 54
+}
