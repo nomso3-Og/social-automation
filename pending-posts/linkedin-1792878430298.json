@@ -1,0 +1,13 @@
+{
+  "platform": "linkedin",
+  "topic": "SOC 2 audits and readiness checklist",
+  "text": "A SOC 2 readiness checklist looks clean on paper until you pull the first sample.\n\nTeams spend months writing policies. They buy compliance software, map their controls, and assume they are ready. Then the auditor asks for evidence from three random Tuesdays in October.\n\nThat is where things break.\n\nThe common failures are rarely missing policies. They are operational handoffs between IT and the rest of the business. An engineer merges a pull request with an emergency bypass because a service was down, but nobody documented the retroactive approval. HR offboards an employee on a Friday, but IT does not revoke their Google Workspace access until Tuesday morning. The policy said 24 hours. Now you have an exception.\n\nAnother regular failure point is user access reviews. Managers rubber-stamp the spreadsheet, return it to security, and leave orphaned accounts in third-party SaaS tools that nobody checked. Auditors do not just look at the sign-off sheet. They compare the date on that review against the actual revocation timestamp inside the identity provider.\n\nReadiness is not having a policy in a folder. It is proving nobody skipped the manual steps when they were busy.\n\nWhich control consistently produces your team's messiest audit evidence?\n\n#SOC2 #GRC #audit",
+  "approved": false,
+  "imagePath": null,
+  "styleFlags": [],
+  "grounded": false,
+  "briefFile": null,
+  "searchQueries": [],
+  "sources": [],
+  "issueNumber": 55
+}
