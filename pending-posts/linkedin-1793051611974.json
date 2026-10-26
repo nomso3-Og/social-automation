@@ -1,0 +1,13 @@
+{
+  "platform": "linkedin",
+  "topic": "cybersecurity governance in IT teams",
+  "text": "Cybersecurity governance falls apart the moment an IT policy lives only in a SharePoint document and not inside your ticketing system.\n\nPolicies usually sound great on paper. They state that every privileged account needs written manager approval, or that all firewall rule changes require a documented rollback plan. Then Friday afternoon arrives. An engineer needs domain admin access to fix an outage, gets a verbal sign-off over a call, and completes the fix. The work gets done. The ticket gets skipped.\n\nSix months later, an auditor pulls the user creation logs directly from Active Directory and asks for the ticket ID matching that timestamp. Now someone has to spend half their day digging through chat logs and email threads trying to prove the request was legitimate.\n\nReal governance inside an IT team is operational, not theoretical. It is a mandatory form field that blocks an account provisioning task until an approval webhook fires. It is an automated report that flags active service accounts with no assigned owner in the CMDB. If a security control requires an engineer to remember a PDF manual while their queue is burning, that control will fail.\n\nBuild the guardrails directly into the admin console and the service desk workflow, or accept that your governance exists only on paper.\n\nHow many orphan admin accounts did your last quarterly access review uncover?\n\n#GRC #informationsecurity #ITsupport",
+  "approved": false,
+  "imagePath": null,
+  "styleFlags": [],
+  "grounded": false,
+  "briefFile": null,
+  "searchQueries": [],
+  "sources": [],
+  "issueNumber": 56
+}
