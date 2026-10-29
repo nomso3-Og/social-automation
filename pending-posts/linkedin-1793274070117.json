@@ -1,0 +1,13 @@
+{
+  "platform": "linkedin",
+  "topic": "common gaps in AML/BSA compliance programs",
+  "text": "Most AML and BSA compliance gaps are not policy failures. They are data pipeline problems.\n\nWhen examiners dig into transaction monitoring, they rarely find issues with the written policy. They look at why an alert never generated. The policy says transactions get flagged based on specific risk rules. In reality, a core banking batch job failed over the weekend, or an ETL script silently dropped records with special characters in the payee field. \n\nAnother common gap is alert fatigue caused by neglected threshold tuning. Teams deploy a monitoring tool, inherit the vendor's default rules, and never recalibrate them against real customer behavior. Compliance analysts spend their days clearing obvious false positives. Real suspicious activity gets rubber-stamped just to hit queue metrics before five o'clock.\n\nExaminers eventually pull the raw transaction tables and compare row counts directly against the monitoring tool's ingestion logs. If those two numbers do not match, the audit turns adversarial very quickly.\n\nWhen was the last time your team reconciled raw transaction logs against the records actually ingested by your monitoring software?\n\n#compliance #audit #GRC",
+  "approved": false,
+  "imagePath": null,
+  "styleFlags": [],
+  "grounded": false,
+  "briefFile": null,
+  "searchQueries": [],
+  "sources": [],
+  "issueNumber": 57
+}
