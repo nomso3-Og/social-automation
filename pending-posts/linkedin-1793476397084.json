@@ -1,0 +1,13 @@
+{
+  "platform": "linkedin",
+  "topic": "how to read a compliance audit finding",
+  "text": "When an audit finding lands on your desk, ignore the recommendation section first.\n\nMost people skip straight to the auditor's advice, buy software, or close three stale tickets. That treats the symptom. Standard audit findings are built on four parts: criteria, condition, cause, and effect.\n\nThe condition is just what failed on Tuesday. Say, two terminated employees still had active Okta accounts 40 days later. IT panics, disables the accounts, and considers the issue resolved. It is not. Next year, you fail the exact same control.\n\nThe meat is in the cause and the criteria. Did HR notify IT late? Did the service desk ticket get stuck in an unassigned queue? Or does your written policy say access is revoked within 24 hours, while your actual SLA with HR has always been five business days? \n\nFixing the condition just cleans up the auditor's sample. Fixing the cause keeps you from having to defend the same broken handoff twelve months later.\n\nWhich part of an audit finding does your team usually fight the auditor on: the sample scope or the root cause?\n\n#GRC #audit #compliance",
+  "approved": false,
+  "imagePath": null,
+  "styleFlags": [],
+  "grounded": false,
+  "briefFile": null,
+  "searchQueries": [],
+  "sources": [],
+  "issueNumber": 58
+}
