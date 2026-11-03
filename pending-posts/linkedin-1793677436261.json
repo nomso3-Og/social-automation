@@ -1,0 +1,13 @@
+{
+  "platform": "linkedin",
+  "topic": "GRC frameworks and how they relate to each other (ISO 27001, NIST CSF, SOC 2)",
+  "text": "If you map ISO 27001, NIST CSF, and SOC 2 side by side, you quickly realize they ask for the same underlying IT evidence using different vocabulary.\n\nTreating them as separate internal projects burns out your systems team.\n\nNIST CSF is your operational baseline. It organizes controls into Identify, Protect, Detect, Respond, and Recover. It does not give you a certificate. It gives technical teams a practical structure to prioritize security work without drowning in legal text.\n\nISO 27001 wraps governance around those operations. It cares about management intent. You need a formal risk register, approved policies, internal audit records, and documented proof that leadership reviews exceptions.\n\nSOC 2 is an audit report meant for your buyers. The auditor wants to verify that your controls actually functioned over time. They will pull thirty random Jira tickets from the last six months to confirm every single code deployment had an independent peer review.\n\nThe technical control remains identical at the machine level. Enforcing MFA on your identity provider satisfies all three. A prompt, automated offboarding script satisfies all three. Build controls around your actual IT architecture once, then map the evidence outward to the auditors. Never redesign your infrastructure to match a compliance spreadsheet.\n\nHow many separate audit requests did your team answer this year using the exact same access review screenshot?\n\n#GRC #ISO27001 #SOC2",
+  "approved": false,
+  "imagePath": null,
+  "styleFlags": [],
+  "grounded": false,
+  "briefFile": null,
+  "searchQueries": [],
+  "sources": [],
+  "issueNumber": 59
+}
