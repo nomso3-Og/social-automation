@@ -1,0 +1,13 @@
+{
+  "platform": "linkedin",
+  "topic": "IT risk management basics for people new to the field",
+  "text": "If you are new to IT risk management, the easiest mistake to make is treating the risk register like a creative writing exercise.\n\nPeople love inventing dramatic disaster scenarios. Nation-state actors compromising the hypervisor. A flood wiping out the primary data center. Meanwhile, the actual audit finding waiting to happen is an unpatched VPN appliance with three former employees still holding active domain admin accounts.\n\nReal IT risk starts with assets, not threats.\n\nIf you do not have an accurate inventory of systems, data stores, and third-party SaaS tools, you cannot calculate risk. You are just guessing. \n\nOnce you know what you own, find the operational dependency. Ask the system administrator what breaks if that specific box drops offline for four hours on a Tuesday morning. The answer to that question gives you your real business impact. Pair that impact with an existing vulnerability, like an unmonitored service account or missing backups, and you finally have a risk worth logging.\n\nEverything else is noise that clutters your tracking sheet and gets ignored during committee meetings.\n\nWhat is the oldest unresolved item sitting on your team's risk register right now?\n\n#GRC #RiskManagement #InformationSecurity",
+  "approved": false,
+  "imagePath": null,
+  "styleFlags": [],
+  "grounded": false,
+  "briefFile": null,
+  "searchQueries": [],
+  "sources": [],
+  "issueNumber": 60
+}
