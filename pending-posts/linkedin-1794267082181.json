@@ -1,0 +1,13 @@
+{
+  "platform": "linkedin",
+  "topic": "ISO 27001 implementation lessons",
+  "text": "The biggest trap in an ISO 27001 implementation is writing policies for an ideal IT department instead of the one you actually run.\n\nTeams spend months drafting beautiful documents that promise mandatory peer reviews, strict change windows, and asset tags on every cloud resource. Then Stage 2 arrives. The auditor asks for five random production deploy logs, matches them against change tickets, and finds three missing rollback plans.\n\nThat gap between the written control and daily operational reality is where non-conformities happen. Auditors do not fail you because your policy lacked legal polish. They fail you because you wrote down that offboarding takes 24 hours, while the service desk queue takes three days.\n\nDesign controls around existing habits. If an approval happens in a Slack thread, document that as the standard instead of forcing a complex ticketing workflow nobody uses. If a control requires manual logging every Friday afternoon, assume it will fail eventually. Make it simple enough to survive a busy week.\n\nWhich control in your Annex A rollout turned out to be the hardest to get system admins to follow?\n\n#ISO27001 #GRC #InformationSecurity",
+  "approved": false,
+  "imagePath": null,
+  "styleFlags": [],
+  "grounded": false,
+  "briefFile": null,
+  "searchQueries": [],
+  "sources": [],
+  "issueNumber": 61
+}
