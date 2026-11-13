@@ -1,0 +1,13 @@
+{
+  "platform": "linkedin",
+  "topic": "NIST CSF updates and adoption",
+  "text": "Adopting the NIST Cybersecurity Framework usually breaks down right where GRC meets daily IT operations. \n\nThe framework added the Govern function because teams kept treating cybersecurity as a pure engineering task. They deployed endpoint tools, enforced multi-factor authentication, and configured log forwarding, but nobody owned the policy exceptions. \n\nWhen you map the core functions to real workflows, the friction shows up immediately. An internal audit asks for evidence that asset inventories update automatically. Meanwhile, the service desk tracks loaner laptops in a spreadsheet because the endpoint management agent drops off-network devices after thirty days. Protect and Detect look clean in the security console, but Govern exposes the manual workarounds keeping the shop running.\n\nGovern asks who formally accepts the risk when an operational server cannot support current encryption standards. If the answer is an IT administrator who just wanted to close a ticket, the control does not really exist. \n\nThe framework is useless as a theoretical maturity score. It only helps when you use it to trace a high-level policy down to what actually happens in the ticketing queue.\n\nWhich NIST CSF function creates the biggest backlog for your operations team?\n\n#NIST #GRC #informationsecurity",
+  "approved": false,
+  "imagePath": null,
+  "styleFlags": [],
+  "grounded": false,
+  "briefFile": null,
+  "searchQueries": [],
+  "sources": [],
+  "issueNumber": 62
+}
