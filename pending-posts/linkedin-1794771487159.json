@@ -1,0 +1,13 @@
+{
+  "platform": "linkedin",
+  "topic": "SOC 2 audits and readiness checklist",
+  "text": "Preparing for a SOC 2 audit rarely fails because of missing policies. It fails in your ticketing queue and admin consoles.\n\nMost teams buy a readiness checklist, draft thirty policies, and assume the bulk of the work is behind them. It isn't. \n\nThe friction begins when the auditor asks for evidence samples. Take offboarding. HR marked the employee departed on a Friday, but IT did not revoke their AWS or GitHub access until the following Wednesday. That gap is an immediate exception. \n\nOr consider change management. A developer pushes an emergency hotfix straight to production at midnight, bypassing branch protection rules because the service was down. If there is no retrospective change ticket or incident log tied to that commit, you have an audit finding. \n\nAuditors do not evaluate how well your documentation is written. They take population lists, pull random samples, and match timestamps. If your readiness checklist focuses on writing rules instead of verifying whether your daily IT workflows leave an auditable trace, audit week becomes pure damage control.\n\nWhich application gives your team the hardest time when you have to prove an account was deprovisioned on schedule?\n\n#SOC2 #GRC #Audit",
+  "approved": false,
+  "imagePath": null,
+  "styleFlags": [],
+  "grounded": false,
+  "briefFile": null,
+  "searchQueries": [],
+  "sources": [],
+  "issueNumber": 63
+}
