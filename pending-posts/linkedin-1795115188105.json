@@ -1,0 +1,13 @@
+{
+  "platform": "linkedin",
+  "topic": "cybersecurity governance in IT teams",
+  "text": "Cybersecurity governance fails inside IT teams the moment policy ignores how tickets actually get resolved.\n\nWhen GRC writes a policy requiring secondary approval for every single configuration change, the service desk stops reading. They create catch-all tickets after the fact. Then an auditor asks for evidence of prior approval for an emergency patch deployed at 2 AM on a Sunday, and the paper trail collapses.\n\nGovernance is not a thirty-page PDF sitting in a forgotten folder. It is whether your sysadmins actually log into dedicated tier accounts instead of running routine tasks with domain admin rights. It is knowing who owns the service account before you rotate its password and break a core database connector. If a control forces an engineer to leave their ticketing queue to fill out an external approval form, they will bypass it. That workaround becomes your real security posture.\n\nBuild the checks directly into the tools the team already lives in. If an IT engineer has to remember to be compliant, the governance model has already broken.\n\nHow many unowned service accounts did your team uncover during your last access review?\n\n#GRC #audit #ITsupport",
+  "approved": false,
+  "imagePath": null,
+  "styleFlags": [],
+  "grounded": false,
+  "briefFile": null,
+  "searchQueries": [],
+  "sources": [],
+  "issueNumber": 64
+}
