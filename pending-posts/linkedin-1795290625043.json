@@ -1,0 +1,13 @@
+{
+  "platform": "linkedin",
+  "topic": "common gaps in AML/BSA compliance programs",
+  "text": "Most AML and BSA program failures happen in the data plumbing, not the policy binder. \n\nAuditors and examiners check your written risk assessment first. But when penalties land, they usually trace back to silent IT failures between systems. \n\nThe most common gap is unvalidated data feeds. An engineer alters a core banking database schema or updates an API payload, and suddenly the country code or beneficiary field truncates before hitting the sanctions engine. The screening tool runs without throwing a single error. It just checks incomplete strings and logs clean results. \n\nAnother gap is threshold decay. Transaction monitoring rules get configured during initial software implementation and sit untouched for three years. If you cannot produce change tickets showing when those thresholds were calibrated against actual payment volumes, examiners treat your alert logic as arbitrary. \n\nThe last one is alert backlog triage. When analysts drown in false positives, they clear flags to hit SLA deadlines. If an analyst closes fifty alerts an hour without documented rationale, the control does not exist. \n\nWhen was the last time your team reconciled transaction logs from the core ledger against the ingestion logs of your monitoring tool?\n\n#compliance #audit #risk",
+  "approved": false,
+  "imagePath": null,
+  "styleFlags": [],
+  "grounded": false,
+  "briefFile": null,
+  "searchQueries": [],
+  "sources": [],
+  "issueNumber": 65
+}
