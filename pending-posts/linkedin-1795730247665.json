@@ -1,0 +1,13 @@
+{
+  "platform": "linkedin",
+  "topic": "how to read a compliance audit finding",
+  "text": "When an auditor hands you a formal finding, do not start by reading their recommendation.\n\nAuditors are trained to spot gaps, but their operational fixes are often impractical for your actual environment. If an auditor sees stale Active Directory accounts, they might tell you to run a manual monthly spreadsheet review. If you implement that as written, you just handed your service desk a recurring chore they will eventually abandon.\n\nA finding is built from four parts: criteria, condition, cause, and effect.\n\nThe condition is what they caught. A service account with domain admin rights, or three missing offboarding tickets from April.\n\nThe criteria is the rule. That might be a SOC 2 requirement, an ISO control, or your own internal access policy.\n\nSkip the auditor's recommendation and look straight at the cause. Did the offboarding fail because HR never submitted the separation notice, or did the help desk close the ticket before running the deprovisioning script?\n\nFix the root cause using IT controls that fit your existing stack. Then write your own management response. You define how the gap gets closed, not the auditor.\n\nWhen was the last time an auditor's suggested remediation would have caused an operational headache if you had built it their way?\n\n#GRC #audit #compliance",
+  "approved": false,
+  "imagePath": null,
+  "styleFlags": [],
+  "grounded": false,
+  "briefFile": null,
+  "searchQueries": [],
+  "sources": [],
+  "issueNumber": 66
+}
